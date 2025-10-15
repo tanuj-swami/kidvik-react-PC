@@ -1,0 +1,48 @@
+.blog-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+  border: 1px solid var(--bs-primary);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Image wrapper with fixed height */
+.blog-img {
+  width: 100%;
+  height: 220px; /* adjust as needed */
+  overflow: hidden;
+}
+
+.blog-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ensures image always fills without distortion */
+  display: block;
+}
+
+/* Content area grows evenly */
+.blog-text-inner {
+  flex-grow: 1; /* pushes button to bottom */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fix blog description text */
+.blog-text-inner p {
+  flex-grow: 1;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* show only 3 lines */
+  -webkit-box-orient: vertical;
+}
+
+/* Buttons always stick bottom */
+.blog-item .text-center {
+  margin-top: auto;
+}

@@ -1,0 +1,115 @@
+.categoryContainer {
+  margin-bottom: 30px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(61, 60, 60, 0.15); /* x-offset, y-offset, blur, color */
+  padding: 10px;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.scrollContainer {
+  position: relative;
+}
+
+.categoriesScroll {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scroll-behavior: smooth;
+  padding: 10px 0;
+}
+
+.categoriesScroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.categoryItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 150px;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.categoryItem:hover {
+  transform: translateY(-5px);
+}
+
+.categoryIcon {
+  width: 80px;
+  height:  80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffcc00, #ff9900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  color: white;
+  font-size: 24px;
+  box-shadow: 0 4px 10px rgba(255, 204, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.categoryItem:hover .categoryIcon {
+  box-shadow: 0 6px 15px rgba(255, 204, 0, 0.4);
+}
+
+.categoryItem span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+  text-align: center;
+}
+
+.scrollButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.scrollLeft {
+  left: -15px;
+}
+
+.scrollRight {
+  right: -15px;
+}
+
+@media (max-width: 768px) {
+  .categoryIcon {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+  }
+  
+  .categoryItem {
+    min-width: 80px;
+    margin-right: 15px;
+  }
+  
+  .categoryItem span {
+    font-size: 0.8rem;
+  }
+}

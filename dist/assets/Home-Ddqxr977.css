@@ -1,0 +1,1 @@
+.slider-bg{background-color:#fff;background-position:50%;background-repeat:no-repeat;background-size:100% 100%;width:100vw;height:60vh;margin-left:-10px}@media (max-width:768px){.slider-bg{height:40vh}}@media (max-width:480px){.slider-bg{height:30vh}}.text-overlay{text-align:center;width:100%;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}

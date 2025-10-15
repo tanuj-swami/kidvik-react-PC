@@ -1,0 +1,157 @@
+/* ensure slides/slide-inner allow children to stretch */
+/* add .program-slider to the wrapper around your slider (see usage below) */
+.program-slider .slick-slide > div,
+.program-slider .glide__slide > div,
+.program-slider .owl-item > div,
+.program-slider .slide > div {
+  height: 100% !important;
+  display: flex !important;
+  align-items: stretch !important;
+}
+
+/* card */
+.program-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;         /* IMPORTANT: lets it stretch to parent's height */
+  min-height: 380px;    /* fallback default; adjust as needed */
+}
+
+/* image area — fixed visible height */
+.program-img .overflow-hidden img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+/* middle content fills available space and can shrink properly */
+.program-text {
+  flex: 1 1 auto; /* grow and shrink */
+  min-height: 0;  /* important for flex children to allow overflow hiding */
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+/* clamp title to 2 lines */
+.program-card__title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+/* clamp description to 3 lines */
+.program-card__desc {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* footer should not grow */
+.program-teacher {
+  flex-shrink: 0;
+}
+
+/* responsive adjust */
+@media (max-width: 767px) {
+  .program-item { min-height: 0; }
+  .program-img .overflow-hidden img { height: 180px; }
+  .program-card__title { -webkit-line-clamp: 2; }
+  .program-card__desc { -webkit-line-clamp: 2; }
+}
+
+.program-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Image wrapper fixed aspect ratio */
+.program-img {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* maintains equal height for all images */
+  overflow: hidden;
+}
+
+.program-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* crop/scale properly */
+  display: block;
+}
+
+/* Content should expand equally */
+.program-card__content {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.program-card__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 8px;
+  text-decoration: none;
+}
+
+.program-card__desc {
+  flex: 1; /* push footer down */
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Teacher Section */
+.program-teacher {
+  flex-shrink: 0;
+}
+
+/* Footer section */
+.program-item .card-footer,
+.program-item > .d-flex {
+  flex-shrink: 0;
+}
+
+.program-footer {
+  background: var(--bs-primary);
+  padding: 10px 16px;
+  border-radius: 0 0 12px 12px;
+  display: flex;
+}
+
+.program-footer .footer-col {
+  flex: 1;                   /* equal width */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 6px;
+  min-height: 40px;          /* ensures equal height even if 1/2 lines */
+}
+
+.program-footer small {
+  font-size: 0.85rem;
+  line-height: 1.2;
+  color: #fff;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;     /* max 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

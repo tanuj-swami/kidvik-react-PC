@@ -1,0 +1,141 @@
+/* Card Container */
+.listing-card {
+  border-radius: 16px;
+  background: var(--light-gray-offwhite); /* light card bg */
+  border: 1px solid rgba(0, 50, 110, 0.08); /* subtle border navy blue tint */
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.listing-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+}
+
+/* Image Section */
+.image-container {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.image-container:hover .card-img-top {
+  transform: scale(1.1);
+}
+
+/* Gradient Overlay */
+.image-container::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+}
+
+/* Card Body */
+.listing-card .card-body {
+  padding: 1rem 1.2rem;
+  background: var(--light-gray-offwhite);
+}
+
+/* Title */
+.listing-card .card-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--deep-navy-blue);
+  margin-bottom: 0.4rem;
+}
+
+/* Subtitle (location) */
+.listing-card .card-subtitle {
+  font-size: 0.9rem;
+  color: var(--forest-green);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Address */
+.listing-card p {
+  font-size: 0.85rem;
+  color: var(--charcoal-gray);
+  margin-bottom: 1rem;
+}
+
+/* Buttons */
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 10px !important;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  color: var(--bs-white) !important;
+}
+
+/* Theme-colored buttons */
+.btn-outline-success {
+  background: var(--mint-green);
+}
+.btn-outline-primary {
+  background: var(--light-top);
+}
+.btn-outline-secondary {
+  background: var(--soft-mustard-yellow);
+}
+.btn-outline-success:hover,
+.btn-outline-primary:hover,
+.btn-outline-secondary:hover {
+  filter: brightness(0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .image-container {
+    height: 180px;
+  }
+  .listing-card .card-title {
+    font-size: 1rem;
+  }
+}
+.star-filled {
+  color: #f5c518; /* gold yellow */
+}
+.star-empty {
+  color: #d3d3d3; /* light grey */
+}
+
+/* Make stars look nice */
+.star-filled {
+  color: #ffc107; /* Bootstrap warning yellow */
+  font-size: 1rem;
+}
+
+.star-empty {
+  color: #e4e5e9; /* light gray */
+  font-size: 1rem;
+}
+
+/* Truncate long names */
+.text-truncate {
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

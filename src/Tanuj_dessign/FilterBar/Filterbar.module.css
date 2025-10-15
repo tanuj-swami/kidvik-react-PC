@@ -1,0 +1,276 @@
+.filterBar {
+  background-color: white;
+  border: 1px solid #ddd; /* light gray border */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(61, 60, 60, 0.15); /* x-offset, y-offset, blur, color */
+  padding: 30px;
+}
+
+
+.filterSection h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.filterGroup {
+  margin-bottom: 20px;
+}
+
+.filterGroup label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: white;
+  font-size: 0.9rem;
+  color: #333;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+.sliderContainer {
+  display: flex;
+  align-items: center;
+}
+
+.slider {
+  flex: 1;
+  height: 5px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
+  /* -webkit-appearance: none; */
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffcc00;
+  cursor: pointer;
+  border: none;
+}
+
+.slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffcc00;
+  cursor: pointer;
+  border: none;
+}
+
+.sliderContainer span {
+  margin-left: 10px;
+  font-size: 0.9rem;
+  color: #666;
+  min-width: 60px;
+}
+
+.priceToggle {
+  display: flex;
+}
+
+.priceButton {
+  flex: 1;
+  padding: 8px 0;
+  background: white;
+  border: 1px solid #ddd;
+  color: #666;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.priceButton:first-child {
+  border-radius: 5px 0 0 5px;
+}
+
+.priceButton:last-child {
+  border-radius: 0 5px 5px 0;
+}
+
+.priceButton.selected {
+  background-color: #ffcc00;
+  border-color: #ffcc00;
+  color: white;
+}
+
+.starRating {
+  display: flex;
+}
+
+.star {
+  font-size: 1.2rem;
+  color: #ddd;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.star.active {
+  color: #FFD700;
+}
+
+.toggleLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.toggleSwitch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.toggleSwitch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggleSwitch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 20px;
+}
+
+.toggleSwitch .slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+.toggleSwitch input:checked + .slider {
+  background-color: #ffcc00;
+}
+
+.toggleSwitch input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+.filterActions {
+  margin-top: 30px;
+}
+
+.moreFilters {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 0.9rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.moreFilters svg {
+  margin-right: 5px;
+}
+
+.expandedFilters {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.checkboxGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.checkboxGroup label {
+  display: flex;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  font-weight: normal;
+  margin-bottom: 0;
+}
+
+.checkboxGroup input {
+  margin-right: 5px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.resetButton, .applyButton {
+  flex: 1;
+  padding: 10px 0;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resetButton {
+  background-color: white;
+  border: 1px solid #ddd;
+  color: #666;
+}
+
+.applyButton {
+  background-color: #ffcc00;
+  border: 1px solid #ffcc00;
+  color: white;
+}
+
+.resetButton:hover {
+  background-color: #f5f5f5;
+}
+
+.applyButton:hover {
+  background-color: #ffbb00;
+}
+
+@media (max-width: 992px) {
+  .filterBar {
+    margin-bottom: 30px;
+  }
+  
+  .checkboxGroup {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .checkboxGroup {
+    grid-template-columns: 1fr 1fr;
+  }
+}

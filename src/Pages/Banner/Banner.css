@@ -1,0 +1,47 @@
+/* Force Slick slides to take up full viewport */
+/* .slick-slide {
+  margin: 0;
+  padding: 0;
+} */
+
+
+/* .slider-bg {
+  height: 60vh;
+  width: 100vw;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+
+.slider-bg {
+  height: 60vh;
+  width: 100vw;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%; /* Show entire image */
+  background-color: #fff; /* Fill empty space */
+  margin-left: -10px;
+}
+
+@media (max-width: 768px) {
+  .slider-bg {
+    height: 40vh; 
+  }
+}
+
+@media (max-width: 480px) {
+  .slider-bg {
+    height: 30vh; 
+  }
+}
+
+
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%; /* responsive ke liye */
+}
+

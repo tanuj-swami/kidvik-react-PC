@@ -1,0 +1,104 @@
+.promotionSection {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 40px;
+  margin: 40px 0;
+  text-align: center;
+}
+
+.promotionContent h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.promotionContent > p {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 700px;
+  margin: 0 auto 30px;
+}
+
+.benefitCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.benefitCard {
+  background-color: white;
+  border-radius: 8px;
+  padding: 25px 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.benefitCard:hover {
+  transform: translateY(-5px);
+}
+
+.benefitIcon {
+  font-size: 2.5rem;
+  color: #ffcc00;
+  margin-bottom: 15px;
+}
+
+.benefitCard h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.benefitCard p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.listButton {
+  background-color: #ff4757;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 10px;
+}
+
+.listButton:hover {
+  background-color: #ff2c40;
+}
+
+@media (max-width: 992px) {
+  .benefitCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .promotionSection {
+    padding: 30px 20px;
+  }
+  
+  .promotionContent h2 {
+    font-size: 1.6rem;
+  }
+  
+  .promotionContent > p {
+    font-size: 1rem;
+  }
+  
+  .benefitCards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .listButton {
+    padding: 10px 25px;
+  }
+}

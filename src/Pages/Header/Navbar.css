@@ -1,0 +1,48 @@
+.navbar-container {
+  transition: top 0.3s ease-in-out;
+  width: 100%;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  left: 0; /* Ensure it starts at left edge */
+  width: 100%;
+  z-index: 1050;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08); /* Soft shadow for better UI */
+  padding: 0.5rem 1rem; /* Balanced spacing */
+}
+
+.dropdown-submenu .dropdown-submenu {
+  display: none;
+  position: absolute;
+  left: 100%; /* Right side of parent */
+ margin-top: -50px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  padding: 10px;
+}
+.dropdown-submenu:hover > .dropdown-submenu {
+  display: block;
+}
+
+.dropdown-submenu {
+  position: relative;
+}
+
+.navbar-sticky {
+  position: relative;
+  top: 0;
+  width: 100%;
+  transition: all 0.3s ease-in-out; /* Smooth animation */
+  z-index: 1000;
+}
+
+.navbar-sticky.sticky {
+  position: fixed;
+  background: #fff; /* or your preferred color */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  top: 0;
+}

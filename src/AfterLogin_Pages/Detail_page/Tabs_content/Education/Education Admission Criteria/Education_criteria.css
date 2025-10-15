@@ -1,0 +1,20 @@
+
+.admission-card {
+  background: #fff;
+  border: 1px solid #eee;
+  transition: all 0.3s ease;
+}
+.admission-card:hover {
+  transform: translateY(-4px);
+  border-color: #42b682;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+.admission-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  font-size: 15px;
+}
+.admission-icon {
+  font-size: 1.2rem;
+}

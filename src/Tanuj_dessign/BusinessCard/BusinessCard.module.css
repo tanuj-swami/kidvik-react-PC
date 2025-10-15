@@ -1,0 +1,215 @@
+.businessCard {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  border: 1px solid rgb(233, 227, 227);
+ 
+}
+
+.businessCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+}
+
+.imageContainer {
+  height: 200px;
+  overflow: hidden;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.imageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+}
+
+.businessCard:hover .imageContainer img {
+  transform: scale(1.08);
+}
+
+.cardContent {
+  padding: 18px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  /* display: flex; */
+  /* justify-content: space-between; */
+  align-items: flex-start; 
+  margin-bottom: 5px;
+}
+
+
+.cardHeader h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #222;
+  line-height: 1.3;
+}
+.tagline {
+  margin: 2px 0 0; /* thoda gap from name */
+  font-size: 0.9rem; 
+  font-weight: 400;
+  color: #666; /* lighter grey */
+  line-height: 1.2;
+}
+
+.verifiedBadge {
+  display: flex;
+  align-items: center;
+  background-color: #e6f9f1;
+  color: #0da678;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.verifiedBadge svg {
+  margin-right: 4px;
+  font-size: 0.8rem;
+}
+
+.categoryTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 30px;
+  background: #f8f9fa;
+  color: #444;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  transition: all 0.3s ease;
+}
+
+.categoryTag:hover {
+  background: #eef2f7;
+}
+
+.categoryIcon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.subCategoryTag {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 12px;
+  padding-left: 6px;
+  border-left: 3px solid #ff4757;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.stars {
+  display: flex;
+  margin-right: 8px;
+}
+
+.starFilled, .starHalf, .starEmpty {
+  color: #FFD700;
+  font-size: 1rem;
+  margin-right: 2px;
+}
+
+.starEmpty {
+  color: #e0e0e0;
+}
+
+.ratingText {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.location svg {
+  margin-right: 6px;
+  color: #ff4757;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+  flex-grow: 1;
+}
+
+.feature {
+  background-color: #f1f3f5;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.viewButton {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  margin-top: auto;
+}
+
+.viewButton:hover {
+  background-color: #0056b3;
+}
+
+/* 📱 Responsive Styles */
+@media (max-width: 992px) {
+  .imageContainer {
+    height: 180px;
+  }
+  .cardHeader h3 {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .businessCard {
+    border-radius: 12px;
+  }
+  .imageContainer {
+    height: 160px;
+  }
+  .cardContent {
+    padding: 15px;
+  }
+  .cardHeader h3 {
+    font-size: 1rem;
+  }
+  .viewButton {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+  }
+}

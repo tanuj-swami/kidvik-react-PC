@@ -1,0 +1,43 @@
+/* Event_Detail.css */
+
+.event-card {
+  background-color: #fff;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.event-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.event-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.event-card .d-flex.align-items-center {
+  gap: 0.5rem; /* adds space between icon and text */
+}
+
+.event-card p {
+  margin: 0.25rem 0 0.5rem 0;
+  line-height: 1.5;
+}
+
+.event-card span {
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .event-card {
+    padding: 1rem;
+  }
+
+  .event-card .d-flex.align-items-center {
+    flex-wrap: wrap;
+  }
+}

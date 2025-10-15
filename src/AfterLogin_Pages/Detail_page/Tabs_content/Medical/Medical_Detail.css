@@ -1,0 +1,36 @@
+.med-card {
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.med-card-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.med-card span {
+  font-size: 0.95rem;
+}
+
+.med-description p {
+  margin-bottom: 0.5rem;
+}
+
+.me-2 {
+  font-size: 1.1rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .med-card-title {
+    font-size: 1.1rem;
+  }
+  .med-card span {
+    font-size: 0.9rem;
+  }
+}
