@@ -75,7 +75,7 @@ function Compresive() {
   return (
     <>
 
-      <div className="py-5" style={{background: bgcolor}}>
+      <div className="py-4" style={{background: bgcolor}}>
         <div className="container">
 
         
@@ -100,9 +100,9 @@ function Compresive() {
               )))}
         </CardWrapper>
       </div>
+      <SubCategory ref={subCategoryRef} selectedCategory={selectedCategory} />
       </div>
 
-      <SubCategory ref={subCategoryRef} selectedCategory={selectedCategory} />
     </>
   );
 }

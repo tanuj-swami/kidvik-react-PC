@@ -108,8 +108,9 @@ const What_Drives_Us = ({ showCards = true }) => {
         <TopHeadingBar icon={<FaCogs />} Topheading="What Drives Us" firstHeading="Guided by Purpose" secondHeading=", Inspired by Families" description="At the heart of everything we do lies a deep commitment to parents, safety, and community.
        We believe every decision should make life simpler, safer, and more connected for families.." />
        <Link to="about">
-        <div className="text-center">
-          <button className="btn btn-primary">Read More</button>
+       
+        <div className="text-center m-2">
+          <button className="btn btn-primary ">Read More</button>
         </div>
        </Link>
         {

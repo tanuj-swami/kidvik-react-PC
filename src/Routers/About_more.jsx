@@ -113,10 +113,9 @@ function About_more() {
     
               </div>
             </div>
-           <What_Drives_Us showCards={true}/>
+         
 
             <div className="container">
-
             <div dangerouslySetInnerHTML={{ __html: aboutData?.key_Points }} />
 
                    {topbarData?.topbar_text && (
@@ -133,7 +132,7 @@ function About_more() {
       </div>
     )}
             </div>
-
+  <What_Drives_Us showCards={true}/>
           </div>
 
     

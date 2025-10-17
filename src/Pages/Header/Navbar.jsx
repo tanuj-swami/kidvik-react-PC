@@ -78,7 +78,7 @@ function Navbar() {
               ) : (
                 <div className="d-flex me-4 justify-content-start">
                   <Link to="/login">
-                    <button
+                    <button onClick={closeNavbarCollapse}
                       className="d-flex align-items-center gap-2 px-3 py-2 btn btn-primary" >
                       <i className="fas fa-user text-white"></i>
                       <span className="text-white">Login</span>

@@ -105,7 +105,7 @@ const Footer = () => {
                 </div>
               </a>
               <div className="d-flex justify-content-center justify-content-lg-start gap-2 mt-3">
-                {[Facebook, Twitter, Instagram, Linkedin].map((Icon, idx) => (
+                {[Facebook, Instagram, Linkedin].map((Icon, idx) => (
                   <a
                     href="#"
                     key={idx}

@@ -147,7 +147,7 @@ const handleContactClick = useHandleContactClick();
             </a>
           )}
 
-          {topbarData?.topbar_twitter && (
+          {/* {topbarData?.topbar_twitter && (
             <a
               href={topbarData?.topbar_twitter}
               className="btn btn-light btn-sm-square rounded-circle bg-danger"
@@ -155,8 +155,10 @@ const handleContactClick = useHandleContactClick();
               rel="noreferrer"
             >
               <i className="fab fa-twitter text-white" />
+              <i class="fa fa-brands fa-x-twitter text-white"/>
+              <i class="fa-brands fa-square-x-twitter text-white"></i>
             </a>
-          )}
+          )} */}
 
           {topbarData?.topbar_instagram && (
             <a

@@ -74,7 +74,7 @@ function SubCategory({selectedCategory , ref}) {
   });
 
   return (
-    <div className="py-5" style={{background: bgcolor}}>
+    <div className="py-2" style={{background: bgcolor}}>
       <div className='container' >
 
      
