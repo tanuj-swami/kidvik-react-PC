@@ -1,0 +1,1 @@
+import{K as e,L as t,Z as n}from"./index-BwT3Dd-R.js";import"./GlobalOwlSlider -DTDfH-eQ.js";import{t as r}from"./Blog-DI1wTo9m.js";e();var i=n(t());function a(){return(0,i.jsx)(i.Fragment,{children:(0,i.jsx)(r,{})})}var o=a;export{o as default};

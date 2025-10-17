@@ -1,1 +1,0 @@
-import{F as e,W as t,Y as n}from"./index-jgXFUliQ.js";import{t as r}from"./Services-Ch-bUUBW.js";t();var i=n(e());function a(){return(0,i.jsx)(i.Fragment,{children:(0,i.jsx)(r,{})})}var o=a;export{o as default};

@@ -96,9 +96,8 @@ function Navbar_Menu({closeNavbarCollapse}) {
           ) : (
             
             <NavLink
-              to={`subcategory/${sub.slug}`}
-             
-              
+              to={`subcategory/${sub.slug}`}    
+              onClick={()=>closeAllMenus()}   
               state={{
                 type: isDetail ? "sub_categorydetail" : "sub_category",
                 category_id: isDetail
@@ -115,6 +114,7 @@ function Navbar_Menu({closeNavbarCollapse}) {
                 style={{ height: "30px", width: "30px", objectFit: "contain" }}
               />
               <span>{sub.name}</span>
+              
             </NavLink>
           )}
         </div>

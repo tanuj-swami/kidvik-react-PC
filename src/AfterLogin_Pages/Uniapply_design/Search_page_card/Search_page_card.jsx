@@ -7,7 +7,7 @@ import { Link, useNavigate, NavLink } from "react-router-dom";
 import { Loading } from "../../../Helper/Loader";
 import CityLocationPicker from "../SearchBar_City_option";
 import { logUserAction } from "../../../Helper/logUserAction";
-import { FaStar, FaGem, FaCrown, FaLeaf, FaHome, FaEye, FaMapMarkerAlt, FaPhoneAlt, FaWhatsapp, FaGlobe } from "react-icons/fa"; // import icons
+import { FaStar, FaGem, FaCrown, FaLeaf, FaHome, FaEye, FaMapMarkerAlt,FaMapMarked, FaPhoneAlt, FaWhatsapp, FaGlobe } from "react-icons/fa"; // import icons
 import { calculateDistance } from "../../../Helper/calculateDistance";
 
 
@@ -20,10 +20,6 @@ function Search_page_card() {
   const userLat = parseFloat(localStorage.getItem("user_latitude"));
   const userLon = parseFloat(localStorage.getItem("user_longitude"));
   // Load from sessionStorage
-
-
-
-
 
   useEffect(() => {
     const stored = JSON.parse(sessionStorage.getItem("compareSchools")) || [];
@@ -109,7 +105,6 @@ function Search_page_card() {
     return regex.test(cleaned);
   };
 
-  console.log("state.filtered_Listing", state.filtered_Listing)
   return (
     <>
       <Card>
@@ -137,128 +132,128 @@ function Search_page_card() {
             ) : (
               state.filtered_Listing.map((list) => {
                 const distance =
-  list?.Latitude && list?.longitute && userLat && userLon
-    ? calculateDistance(userLat, userLon, list.Latitude, list.longitute)
-    : null;
-     return ( 
-                <div className="school-card" key={list.PartnerMaster_id}>
-                  <div className="school-image-container">
-                    <img
-                      src={
-                        list?.logo
-                          ? `${BASE_URL}${list.logo}`
-                          : "/img/logo/Kidvik_Final_logo01.jpg.png"
-                      }
-                      alt={list.listing_name}
-                      className="school-image"
-                    />
-                    <span
-                      className="status-badge d-flex align-items-center gap-1 px-2 py-1 rounded"
+                  list?.Latitude && list?.longitute && userLat && userLon
+                    ? calculateDistance(userLat, userLon, list.Latitude, list.longitute)
+                    : null;
+                return (
+                  <div className="school-card" key={list.PartnerMaster_id}>
+                    <div className="school-image-container">
+                      <img
+                        src={
+                          list?.logo
+                            ? `${BASE_URL}${list.logo}`
+                            : "/img/logo/Kidvik_Final_logo01.jpg.png"
+                        }
+                        alt={list.listing_name}
+                        className="school-image"
+                      />
+                      <span
+                        className="status-badge d-flex align-items-center gap-1 px-2 py-1 rounded"
 
-                    >
-                      {list?.subscription_type?.SubscriptionType_name}
-                    </span>
-                  </div>
+                      >
+                        {list?.subscription_type?.SubscriptionType_name}
+                      </span>
+                    </div>
 
-                  <div className="school-content">
-                    <NavLink to={`/partner/${list.slug}`}
-                      onClick={(e) => handleClick(e, list)}
-                    >
-                      <h5 className="school-name">{list.listing_name}</h5>
-                      <p className="school-location d-flex align-items-center gap-1 m-0">
-                        <FaHome className="text-danger" title="home" />
-                        {list?.area?.Location_name || "Unknown Area"},{" "}
-                        {list?.city?.City_name || "Unknown City"}
+                    <div className="school-content">
+                      <NavLink to={`/partner/${list.slug}`}
+                        onClick={(e) => handleClick(e, list)}
+                      >
+                        <h5 className="school-name">{list.listing_name}</h5>
+                        <p className="school-location d-flex align-items-center gap-1 m-0">
+                          <FaHome className="text-danger" title="home" />
+                          {list?.area?.Location_name || "Unknown Area"},{" "}
+                          {list?.city?.City_name || "Unknown City"}
+                        </p>
+                      </NavLink>
+                      {/* <p>{calculateDistance(userLat, userLon, list?.Latitude, list?.longitute)} km away</p> */}
+
+                      <p className="school-distance d-flex align-items-center gap-1 m-0">
+                        {distance ? (
+                          <>
+                            <FaMapMarked className="text-black"size={20} /> {distance} km away
+                          </>
+                        ) : (
+                          "Distance not available"
+                        )}
                       </p>
-                    </NavLink>
-                    {/* <p>{calculateDistance(userLat, userLon, list?.Latitude, list?.longitute)} km away</p> */}
-
-                    <p className="school-distance d-flex align-items-center gap-1 m-0">
-                      {distance ? (
-                        <>
-                          <FaMapMarkerAlt className="text-danger" /> {distance} km away
-                        </>
-                      ) : (
-                        "Distance not available"
-                      )}
-                    </p>
-                    {/* <div className="school-info-grid">   */}
-                    <div>Type:<strong> {list?.sub_category?.name}</strong></div>
-                    {/* <div><strong>Board:</strong> CBSE</div>
+                      {/* <div className="school-info-grid">   */}
+                      <div>Type:<strong> {list?.sub_category?.name}</strong></div>
+                      {/* <div><strong>Board:</strong> CBSE</div>
                     <div><strong>Ratio:</strong> 24:1</div> */}
-                    {/* </div> */}
-                    <div className="d-flex align-items-center  justify-content-between">
+                      {/* </div> */}
+                      <div className="d-flex align-items-center  justify-content-between">
 
-                      <div className="d-flex align-items-center gap-1">
-                        <button className=" btn-sm btn-success d-flex align-items-center gap-2">
-                          <FaStar /> {list?.average_rating || "0.0"}
-                        </button>
-                        <span className="ms-1">{list?.total_reviews || 0} reviews</span>
+                        <div className="d-flex align-items-center gap-1">
+                          <button className=" btn-sm btn-success d-flex align-items-center gap-2">
+                            <FaStar /> {list?.average_rating || "0.0"}
+                          </button>
+                          <span className="ms-1">{list?.total_reviews || 0} reviews</span>
+                        </div>
+
+                        <NavLink to={`/partner/${list.slug}`} onClick={(e) => handleClick(e, list)}>
+                          <FaEye size={20} color="#42b682" title="View Details" />
+                        </NavLink>
                       </div>
 
-                      <NavLink to={`/partner/${list.slug}`} onClick={(e) => handleClick(e, list)}>
-                        <FaEye size={20} color="#42b682" title="View Details" />
-                      </NavLink>
+                      <div className="school-actions d-flex flex-wrap align-items-center gap-1">
+                        <label className="d-flex align-items-center gap-2">
+                          <input
+                            type="checkbox"
+                            className="compare-checkbox mt-lg-2 mt-md-2"
+                            checked={compareList.includes(list.PartnerMaster_id)}
+                            onChange={() => handleCompareToggle(list.PartnerMaster_id)}
+                          />
+                          Compare
+                        </label>
+
+                        {list.geo_location && (
+                          <NavLink
+                            to={list.geo_location}
+                            onClick={(e) => handleClick(e, list)}
+                            target="_blank"
+                          >
+                            <button className="icon-btn" title="View on Map">
+                              <FaMapMarkerAlt size={20} />
+                            </button>
+                          </NavLink>
+                        )}
+
+                        {list.website && (
+                          <a href={list.website} target="_blank" rel="noopener noreferrer">
+                            <button className="icon-btn" title="Visit Website">
+                              <FaGlobe size={20} />
+                            </button>
+                          </a>
+                        )}
+
+                        {list.list_mobno && (
+                          <a href={`tel:${list.list_mobno}`}>
+                            <button className="icon-btn" title="Call Now">
+                              <FaPhoneAlt size={20} />
+                            </button>
+                          </a>
+                        )}
+
+                        {validateIndianNumber(list.whats_up) && (
+                          <a
+                            href={`https://wa.me/91${list.whats_up}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <button className="icon-btn " title="Chat on WhatsApp">
+                              <FaWhatsapp size={20} />
+                            </button>
+                          </a>
+                        )}
+                      </div>
+
+
+
                     </div>
-
-                    <div className="school-actions d-flex flex-wrap align-items-center gap-1">
-                      <label className="d-flex align-items-center gap-2">
-                        <input
-                          type="checkbox"
-                          className="compare-checkbox mt-lg-2 mt-md-2"
-                          checked={compareList.includes(list.PartnerMaster_id)}
-                          onChange={() => handleCompareToggle(list.PartnerMaster_id)}
-                        />
-                        Compare
-                      </label>
-
-                      {list.geo_location && (
-                        <NavLink
-                          to={list.geo_location}
-                          onClick={(e) => handleClick(e, list)}
-                          target="_blank"
-                        >
-                          <button className="icon-btn" title="View on Map">
-                            <FaMapMarkerAlt size={20} />
-                          </button>
-                        </NavLink>
-                      )}
-
-                      {list.website && (
-                        <a href={list.website} target="_blank" rel="noopener noreferrer">
-                          <button className="icon-btn" title="Visit Website">
-                            <FaGlobe size={20} />
-                          </button>
-                        </a>
-                      )}
-
-                      {list.list_mobno && (
-                        <a href={`tel:${list.list_mobno}`}>
-                          <button className="icon-btn" title="Call Now">
-                            <FaPhoneAlt size={20} />
-                          </button>
-                        </a>
-                      )}
-
-                      {validateIndianNumber(list.whats_up) && (
-                        <a
-                          href={`https://wa.me/91${list.whats_up}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <button className="icon-btn " title="Chat on WhatsApp">
-                            <FaWhatsapp size={20} />
-                          </button>
-                        </a>
-                      )}
-                    </div>
-
-
-
                   </div>
-                </div>
-     )
-          })
+                )
+              })
             )}
           </div>
 

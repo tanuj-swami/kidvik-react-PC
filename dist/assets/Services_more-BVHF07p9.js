@@ -1,0 +1,1 @@
+import{K as e,L as t,Z as n}from"./index-BwT3Dd-R.js";import{t as r}from"./Services-CP6Y9Acw.js";e();var i=n(t());function a(){return(0,i.jsx)(i.Fragment,{children:(0,i.jsx)(r,{})})}var o=a;export{o as default};

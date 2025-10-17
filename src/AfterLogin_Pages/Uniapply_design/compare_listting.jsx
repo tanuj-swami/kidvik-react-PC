@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { BASE_URL } from "../../Helper/Base_Url";
 import { Loading } from "../../Helper/Loader";
+import { calculateDistance } from "../../Helper/calculateDistance";
 
 function CompareListting() {
   const location = useLocation();
@@ -19,6 +20,9 @@ function CompareListting() {
   const params = new URLSearchParams(location.search);
   const idsParam = params.get("ids");
   const ids = idsParam ? idsParam.split(",") : [];
+
+   const userLat = parseFloat(localStorage.getItem("user_latitude"));
+      const userLon = parseFloat(localStorage.getItem("user_longitude"));
 
   useEffect(() => {
     const fetchCompareData = async () => {
@@ -51,6 +55,7 @@ function CompareListting() {
   };
 
   const tabNames = Object.keys(groupData);
+  console.log("schoolsData", schoolsData)
 
   return (
     <div className="my-2 container-fluid" style={{ background: "#eeebebdc" }}>
@@ -103,18 +108,18 @@ function CompareListting() {
                 <option>Class 2</option>
               </StyledSelect> */}
 
-             <div className="form-check d-flex justify-content-center align-items-center mt-3">
-  <input
-    className="form-check-input me-2"
-    type="checkbox"
-    id="hideCommon"
-    checked={hideCommon}
-    onChange={(e) => setHideCommon(e.target.checked)}
-  />
-  <label className="form-check-label fw-semibold" htmlFor="hideCommon">
-    Hide Common Values
-  </label>
-</div>
+              <div className="form-check d-flex justify-content-center align-items-center mt-3">
+                <input
+                  className="form-check-input me-2"
+                  type="checkbox"
+                  id="hideCommon"
+                  checked={hideCommon}
+                  onChange={(e) => setHideCommon(e.target.checked)}
+                />
+                <label className="form-check-label fw-semibold" htmlFor="hideCommon">
+                  Hide Common Values
+                </label>
+              </div>
 
             </CompareBox>
 
@@ -143,6 +148,7 @@ function CompareListting() {
                     <h6 className="fw-bold mb-1">
                       {school.listing_name || "School Name"}
                     </h6>
+                    
                     {school.area && school.city && (
                       <p className="mb-0" style={{ fontSize: "0.9rem" }}>
                         <FaMapMarkerAlt className="me-1 text-warning" />
@@ -150,9 +156,11 @@ function CompareListting() {
                       </p>
                     )}
                   </div>
+
                   <NavLink to={`/partner/${school.slug}`}>
                     <button className="custom-btn-banner">View Details</button>
                   </NavLink>
+
                 </div>
               </SchoolCard>
             ))}
@@ -161,45 +169,78 @@ function CompareListting() {
       </Container>
 
       {/* Tabs for Groups */}
-   {!loading && tabNames.length > 0 && (
-  <div className="mt-4">
-    <Accordion flush alwaysOpen defaultActiveKey={tabNames.map((_, i) => i.toString())}>
-      {tabNames.map((tab, index) => (
-        <Card key={tab} className="mb-3 shadow-sm">
-          <Accordion.Item eventKey={index.toString()}>
-            <Accordion.Header>{tab}</Accordion.Header>
-            <Accordion.Body>
-              <div className="table-responsive text-center">
-                <table className="table table-bordered table-striped align-middle mb-0">
-                  <caption className="caption-top fw-bold fs-5 text-dark">
-                    {tab} Details
-                  </caption>
-                  <tbody>
-                    {filteredKeys(groupData[tab] || []).map((key) => {
-                      if (["banner_img", "logo"].includes(key)) return null;
-                      return (
-                        <tr key={key}>
-                          <td className="fw-semibold text-capitalize bg-light p-3">
-                            {key}
-                          </td>
-                          {schoolsData.map((school) => (
-                            <td key={school.PartnerMaster_id} className="p-3">
-                              {String(school[key] || "—")}
-                            </td>
-                          ))}
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </Accordion.Body>
-          </Accordion.Item>
-        </Card>
-      ))}
-    </Accordion>
-  </div>
-)}
+      {!loading && tabNames.length > 0 && (
+        <div className="mt-4">
+          <Accordion flush alwaysOpen defaultActiveKey={tabNames.map((_, i) => i.toString())}>
+            {tabNames.map((tab , index) => (
+              <Card key={tab} className="mb-3 shadow-sm">
+                <Accordion.Item eventKey={index.toString()}>
+                  <Accordion.Header>{tab} Detail</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="table-responsive text-center">
+                      <table className="table table-bordered table-striped align-middle mb-0">
+                        {/* <caption className="caption-top fw-bold fs-5 text-dark">
+                          {tab} Details
+                        </caption> */}
+                        <tbody>
+                          {filteredKeys(groupData[tab] || []).map((key) => {
+                            if (["banner_img", "logo","Distance from your location"].includes(key)) return null;
+                            return (
+                              <>
+                                <tr key={key}>
+                                  <td className="fw-semibold text-capitalize bg-light p-3">
+                                    {key}
+                                  </td>
+                                  {schoolsData.map((school) => (
+
+                                    <td key={school.PartnerMaster_id} className="p-3">
+                                      {String(school[key] || "—")}
+                                    </td>
+
+                                  ))}
+                                </tr>
+
+                               
+
+
+                              </>
+
+                            );
+                          })}
+
+                         {
+                            tab === "Location" && (
+                               <tr>
+                                  <td className="fw-semibold text-capitalize bg-light p-3">Distance from your location (km)</td>
+                                  {schoolsData.map((school) => {
+                                    const distance =
+                                        school?.Latitude &&
+                                        school?.longitute &&
+                                        userLat &&
+                                        userLon
+                                        ? calculateDistance(
+                                          userLat,
+                                          userLon,
+                                          parseFloat(school.Latitude),
+                                          parseFloat(school.longitute)
+                                        )
+                                        : "Distance not available";
+
+                                    return <td key={school.PartnerMaster_id} className="p-3">{distance} km away</td>;
+                                  })}
+                                </tr>
+                                   )
+                         }
+                        </tbody>
+                      </table>
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Card>
+            ))}
+          </Accordion>
+        </div>
+      )}
 
     </div>
   );
