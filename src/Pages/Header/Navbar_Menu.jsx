@@ -1,50 +1,53 @@
-import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "../../Helper/Base_Url";
 
-function Navbar_Menu({closeNavbarCollapse}) {
+function Navbar_Menu({ closeNavbarCollapse }) {
   const [categories, setCategories] = useState([]);
-  const [openDropdown, setOpenDropdown] = useState(null); // track open menu
-  const [openSubDropdown, setOpenSubDropdown] = useState(null); // track sub menu
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [openSubDropdown, setOpenSubDropdown] = useState(null);
 
+  // ------------------------ USEQUERY CALL ------------------------
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["allCategories"],
+    queryFn: fetchCategoriesData,
+    staleTime: 1000 * 60 * 5, // 5 min cache
+    refetchOnWindowFocus: false,
+  });
+
+  // ------------------------ PROCESS DATA ------------------------
   useEffect(() => {
-    Promise.all([
-      fetch(`${BASE_URL}/sub_category/`).then((res) => res.json()),
-      fetch(`${BASE_URL}/sub_category_detail/`).then((res) => res.json()),
-    ])
-      .then(([subCats, subCatDetails]) => {
-        const subCatDetailsMap = subCatDetails.data.reduce((acc, item) => {
-          const subId = item.sub_category.id;
-          if (!acc[subId]) acc[subId] = [];
-          acc[subId].push(item);
-          return acc;
-        }, {});
+    if (!data) return;
 
-        const grouped = subCats.data.reduce((acc, sub) => {
-          const catId = sub.category.id;
-          if (!acc[catId]) {
-            acc[catId] = { ...sub.category, subcategories: [] };
-          }
+    const { subCats, subCatDetails } = data;
 
-          const subWithDetails = {
-            ...sub,
-            subcategories: subCatDetailsMap[sub.id] || [],
-          };
+    const subCatDetailsMap = subCatDetails.reduce((acc, item) => {
+      const subId = item.sub_category.id;
+      if (!acc[subId]) acc[subId] = [];
+      acc[subId].push(item);
+      return acc;
+    }, {});
 
-          acc[catId].subcategories.push(subWithDetails);
-          return acc;
-        }, {});
+    const grouped = subCats.reduce((acc, sub) => {
+      const catId = sub.category.id;
+      if (!acc[catId]) {
+        acc[catId] = { ...sub.category, subcategories: [] };
+      }
 
-        setCategories(Object.values(grouped));
-      })
-      .catch((err) => console.error(err));
-  }, []);
+      const subWithDetails = {
+        ...sub,
+        subcategories: subCatDetailsMap[sub.id] || [],
+      };
 
+      acc[catId].subcategories.push(subWithDetails);
+      return acc;
+    }, {});
 
+    setCategories(Object.values(grouped));
+  }, [data]);
 
-
-
-
+  // ------------------------ HANDLERS ------------------------
   const handleDropdownToggle = (catId) => {
     setOpenDropdown(openDropdown === catId ? null : catId);
     setOpenSubDropdown(null);
@@ -60,10 +63,19 @@ function Navbar_Menu({closeNavbarCollapse}) {
     setOpenSubDropdown(null);
   };
 
+  // ------------------------ LOADING & ERROR ------------------------
+  // if (isLoading) {
+  //   return <div className="nav-item nav-link">Loading...</div>;
+  // }
+
+  if (isError) {
+    return <div className="nav-item nav-link text-danger">Failed to load menu</div>;
+  }
+
+  // ------------------------ RENDER SUBCATEGORIES ------------------------
   const renderSubcategories = (subs, isDetail = false) => {
     return subs.map((sub) => {
       const hasDetails = sub.subcategories && sub.subcategories.length > 0;
-            
 
       return (
         <div key={sub.id} className="position-relative">
@@ -89,22 +101,17 @@ function Navbar_Menu({closeNavbarCollapse}) {
                 <div className="dropdown-menu show position-static ms-3 bg-white shadow-sm mt-1">
                   {renderSubcategories(sub.subcategories, true)}
                 </div>
-                
               )}
             </>
-            
           ) : (
-            
             <NavLink
-              to={`subcategory/${sub.slug}`}    
-              onClick={()=>closeAllMenus()}   
+              to={`subcategory/${sub.slug}`}
+              onClick={() => closeAllMenus()}
               state={{
                 type: isDetail ? "sub_categorydetail" : "sub_category",
-                category_id: isDetail
-                  ? sub?.sub_category?.category?.id
-                  : sub.category?.id,
-                 sub_category_id: isDetail ? sub.sub_category?.id : sub.id,
-                 sub_category_detail_id: isDetail ? sub.id : "all",
+                category_id: isDetail ? sub?.sub_category?.category?.id : sub.category?.id,
+                sub_category_id: isDetail ? sub.sub_category?.id : sub.id,
+                sub_category_detail_id: isDetail ? sub.id : "all",
               }}
               className="dropdown-item d-flex align-items-center gap-2"
             >
@@ -114,7 +121,6 @@ function Navbar_Menu({closeNavbarCollapse}) {
                 style={{ height: "30px", width: "30px", objectFit: "contain" }}
               />
               <span>{sub.name}</span>
-              
             </NavLink>
           )}
         </div>
@@ -122,12 +128,17 @@ function Navbar_Menu({closeNavbarCollapse}) {
     });
   };
 
+  // ------------------------ RETURN JSX ------------------------
   return (
     <div className="navbar-nav mx-auto">
       <NavLink to="/" className="nav-item nav-link" onClick={closeAllMenus}>
         Home
       </NavLink>
-
+      {
+  isLoading ? (
+    <div className="nav-item nav-link">Loading...</div>
+  ) : (
+    <>
       {categories.map((cat) => (
         <div key={cat.id} className="nav-item dropdown position-relative">
           <button
@@ -148,12 +159,30 @@ function Navbar_Menu({closeNavbarCollapse}) {
           )}
         </div>
       ))}
+    </>
+  )
+}
+
+
 
       <NavLink to="/contact-us" className="nav-item nav-link" onClick={closeAllMenus}>
-           Contact
+        Contact Us
       </NavLink>
     </div>
   );
 }
 
 export default Navbar_Menu;
+
+// ------------------------ API FUNCTION ------------------------
+async function fetchCategoriesData() {
+  const [subCatsRes, subCatDetailsRes] = await Promise.all([
+    fetch(`${BASE_URL}/sub_category/`),
+    fetch(`${BASE_URL}/sub_category_detail/`)
+  ]);
+
+  const subCats = await subCatsRes.json();
+  const subCatDetails = await subCatDetailsRes.json();
+
+  return { subCats: subCats.data, subCatDetails: subCatDetails.data };
+}

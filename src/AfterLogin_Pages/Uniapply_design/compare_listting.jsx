@@ -32,10 +32,11 @@ function CompareListting() {
         const res = await fetch(`${BASE_URL}/partner_compare/${ids.join(",")}/`);
         const result = await res.json();
 
-        if (result?.status) {
-          setSchoolsData(result.data);
-          setGroupData(result.group?.Education || {});
-        }
+       if (result?.status) {
+  setSchoolsData(result.data);
+  setGroupData(result.group?.Education || {});  // FIXED
+}
+
       } catch (err) {
         console.error("Error fetching compare data:", err);
       } finally {
@@ -146,12 +147,13 @@ function CompareListting() {
                     }}
                   >
                     <h6 className="fw-bold mb-1">
-                      {school.listing_name || "School Name"}
+                      {school?.listing_name || "School Name"}
                     </h6>
                     
+
                     {school.area && school.city && (
                       <p className="mb-0" style={{ fontSize: "0.9rem" }}>
-                        <FaMapMarkerAlt className="me-1 text-warning" />
+                         <FaMapMarkerAlt className="me-1 text-warning" />
                         {school.area?.Location_name}, {school.city?.City_name}
                       </p>
                     )}
@@ -169,7 +171,10 @@ function CompareListting() {
       </Container>
 
       {/* Tabs for Groups */}
-      {!loading && tabNames.length > 0 && (
+      {/* {!loading && ( */}
+        <>
+      
+       
         <div className="mt-4">
           <Accordion flush alwaysOpen defaultActiveKey={tabNames.map((_, i) => i.toString())}>
             {tabNames.map((tab , index) => (
@@ -240,7 +245,9 @@ function CompareListting() {
             ))}
           </Accordion>
         </div>
-      )}
+
+         </>
+      {/* )} */}
 
     </div>
   );

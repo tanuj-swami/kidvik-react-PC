@@ -21,6 +21,10 @@ const Search_page_uniaply = lazy(() => import("./AfterLogin_Pages/Search_page_un
 // Lazy load pages
 const Home = lazy(() => import("./Pages/Home"));
 const AboutMore = lazy(() => import("./Routers/About_more"));
+const Aboutus = lazy(() => import("./Routers/About_app"));
+const Termsnconditions = lazy(() => import("./Routers/Turmsnconditions"));
+const Privacypolicy = lazy(() => import("./Routers/privacypolicy"));
+const Cookiespolicy = lazy(() => import("./Routers/cookiespolicy"));
 const ServicesMore = lazy(() => import("./Routers/Services/Services_more"));
 const KidvikProgramMore = lazy(() => import("./Routers/Kidvik_program/Kidvik_program_more"));
 const KidvikEventMore = lazy(() => import("./Routers/Kidvik_event_more/Kidvik_event_more"));
@@ -48,6 +52,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "about", element: <AboutMore /> },
+      { path: "ourstory", element: <Aboutus /> },
       { path: "service", element: <ServicesMore /> },
       { path: "program", element: <KidvikProgramMore /> },
       { path: "event", element: <KidvikEventMore /> },
@@ -64,6 +69,9 @@ const router = createBrowserRouter([
       { path: "partner-signup", element: <Create_partner /> },
       { path: "partnersignup", element: <Create_partner /> },
       // { path: "compare", element: <Comparepage /> },
+      { path: "termsnconditions", element: <Termsnconditions /> },
+      { path: "privacypolicy", element: <Privacypolicy /> },
+      { path: "cookiespolicy", element: <Cookiespolicy /> },
       {
         path: "park_listing",
         element: (
@@ -106,17 +114,22 @@ const router = createBrowserRouter([
             <Search_controler />
         ),
       },
+
       {
         path: "explore",
         element: (
+        <ProtectedRoute>
           <Search_page_uniaply />
+        </ProtectedRoute>
         ),
       },
 
       {
         path: "partner/:slug",
         element: (
+          <ProtectedRoute>
             <Previwe />
+          </ProtectedRoute>
         ),
       },
 

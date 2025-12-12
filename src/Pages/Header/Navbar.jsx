@@ -22,7 +22,7 @@ function Navbar() {
 
     const handleScroll = () => {
 
-      setIsSticky(window.scrollY > 10);
+      setIsSticky(window.scrollY > 0);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);

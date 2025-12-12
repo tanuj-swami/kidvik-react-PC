@@ -3,6 +3,8 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { BASE_URL } from "../../Helper/Base_Url";
 import  fetchSelectOptions  from "../../AfterLogin_Pages/Entry_screen_step/MasterTableData/Master_Institude_2nd_step";
 import { useFilter } from "../Filter_contaxt";
+import { useQuery } from "@tanstack/react-query";
+
 
 const APIContext = createContext();
 
@@ -177,6 +179,34 @@ async function Getsinglepartner(slug) {
   }
 }
 
+  const fetchPolicies = async () => {
+  const res = await fetch(`${BASE_URL}/policy_master/`);
+  if (!res.ok) throw new Error("Failed to fetch");
+  const json = await res.json();
+  return json.data[0]; // return first object
+};
+
+
+  const { data: aboutData, isLoading  } = useQuery({
+    queryKey: ["policyMaster"],
+    queryFn: fetchPolicies,
+  });
+
+  
+  const fetchContactUs = async () => {
+  const res = await fetch(`${BASE_URL}/ContactUs`);
+  if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
+  const json = await res.json();
+  return json.data?.[0] || null;
+};
+
+
+  
+  const { data: data , isLoading : contactLoading} = useQuery({
+  queryKey: ["contactUs"],
+  queryFn: fetchContactUs,
+});
+
 
 
   return (
@@ -195,6 +225,11 @@ async function Getsinglepartner(slug) {
        singledetail , 
        sunlaoding , 
        detailloading, 
+       aboutData, 
+       isLoading, 
+       contactLoading,
+       data
+       
        }}>
       {children}
     </APIContext.Provider>

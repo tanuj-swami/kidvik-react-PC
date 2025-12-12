@@ -20,7 +20,9 @@ function UserDropdown({closeNavbarCollaps}) {
 
   return (
     <div className="position-relative">
-      <Dropdown align="end" show={dropdownOpen} onToggle={() => setDropdownOpen(!dropdownOpen)}>
+      <Dropdown align="end" show={dropdownOpen} onToggle={() => setDropdownOpen(!dropdownOpen)}
+         
+        >
         <Dropdown.Toggle
           variant="light"
           className="d-flex align-items-center bg-white border rounded shadow-sm px-1 py-1"

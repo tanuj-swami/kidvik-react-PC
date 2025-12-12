@@ -90,7 +90,7 @@ function Search_bar_listing({setOpen }) {
       }
     };
 
-    const delayDebounce = setTimeout(fetchSuggestions, 400); // debounce typing
+    const delayDebounce = setTimeout(fetchSuggestions, 400); 
 
     return () => clearTimeout(delayDebounce);
   }, [searchTerm, cityId]);
@@ -161,7 +161,7 @@ function Search_bar_listing({setOpen }) {
               showToast("Please select a city first!","info");
               setOpen(true);
               // showToast("Please select a city first!","warning")
-      return; // prevent typing
+                 return; // prevent typing
     }
             setSearchTerm(e.target.value);
             setShowDropdown(true);
@@ -190,6 +190,7 @@ function Search_bar_listing({setOpen }) {
       boxShadow: "0 4px 15px rgba(0,0,0,0.15)",
     }}
   >
+    
     {suggestions.map((item, index) => (
       <li
         key={item.PartnerMaster_id}
@@ -219,6 +220,7 @@ function Search_bar_listing({setOpen }) {
         </small>
       </li>
     ))}
+
   </ul>
 )}
 

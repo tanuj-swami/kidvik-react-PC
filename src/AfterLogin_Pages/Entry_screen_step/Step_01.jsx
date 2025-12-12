@@ -35,7 +35,6 @@ function Step_01({ next, setloading, setSelectedCategory, setdata , setCompleted
   const { slug } = useParams();
 
 
-  console.log("errors", errors)
 
   const dataset = {
     sub_category_detail_id: 1,
@@ -97,7 +96,6 @@ function Step_01({ next, setloading, setSelectedCategory, setdata , setCompleted
       const res = await fetch(`${BASE_URL}/partner_master/${slug}/`);
       const data = await res.json();
       const Listingdata = data.data;
-      console.log("Listingdata", Listingdata);
 
       setdata(Listingdata);
 
@@ -410,10 +408,8 @@ function Step_01({ next, setloading, setSelectedCategory, setdata , setCompleted
     });
   };
 
-console.log("formData",formData)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("aman")
     const form = e.target;
 
     if (!formData.sub_category_id) {
@@ -439,7 +435,6 @@ console.log("formData",formData)
 
       Object.keys(formData).forEach((key) => {
         let value = formData[key];
-        console.log("formDataToSend",formDataToSend)
 
         if (key === "sub_category_detail_id" && formData.category_id !== 6) {
              value = null;
@@ -459,22 +454,18 @@ console.log("formData",formData)
         }
       });
 
-      console.log("formDataToSend", formDataToSend)
 
       const response = await fetch(slug ? ` ${BASE_URL}/partner_master/${slug}/` : `${BASE_URL}/partner_master/`, {
         method: slug ? "PUT" : "POST",
         body: formDataToSend,
       });
-      console.log("formDataToSend",formDataToSend)
 
       const data = await response.json();
       if (response.ok) {
-        console.log("✅ Success:", data);
                  setCompletedSteps((prev) => [...prev, activeStep]);
 
         showToast(data.message, "success")
         const slug = data.data.PartnerMaster_id;
-        console.log("PartnerMaster_id", slug);
         localStorage.setItem("partner_id", slug);
         setpartner_id(slug);
         next()

@@ -61,22 +61,21 @@ function Search_page_uniaply() {
       });
     }
   }, [state.sub_category]);
-
-
-  // 🟢 After your first useEffect that sets category_id and sub_category_id
+  
   useEffect(() => {
     if (
       state.sub_category.length > 0 &&
       sub_category_id &&
       sub_category_id !== "all"
-    ) {
+    ){
       dispatch({
         type: "SET_FILTER",
         payload: { name: "sub_category_id", value: sub_category_id },
-      });
+      });    
     }
   }, [state.sub_category, sub_category_id]);
 
+  
   return (
     <>
       <Wrapper>
@@ -206,7 +205,9 @@ function Search_page_uniaply() {
     </button>
   ))}
 </div>
+
             <Search_page_card  showcard={false}/>
+
           </div>
 
 
@@ -215,9 +216,8 @@ function Search_page_uniaply() {
 
 
     </>
-  )
+  ) 
 }
-
 
 const Wrapper = styled.section`
 .category-bar .nav-link {
@@ -292,7 +292,7 @@ const Result = styled.div`
   font-size: 0.875rem;
 }
 
-`
+`;
 
 
 export default Search_page_uniaply

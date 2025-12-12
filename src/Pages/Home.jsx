@@ -24,8 +24,7 @@ function Home() {
     <>
     <Banner/>
     <About/>
-     <What_Drives_Us showCards={false}/>
-    <MobileAppSection/>
+     {/* <What_Drives_Us /> */}
     {/* <Comprehensive_Services/> */}
     <Compresive/>
     <Trending_are/>
@@ -34,6 +33,7 @@ function Home() {
    
     <Simple_Process/>
     {/* <Partner_with_us/> */}
+    <MobileAppSection/>
     <Partners/>
     {/* <Services/> */}
     {/* <Kidvik_programe/> */}

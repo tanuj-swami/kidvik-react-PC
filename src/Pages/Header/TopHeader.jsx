@@ -7,7 +7,6 @@ import { logUserAction } from '../../Helper/logUserAction';
 import {  useHandleContactClick } from '../../Helper/handleContactClick';
 
 
-
 function TopHeader() {
   const { topbarData } = useLogin();
 const handleContactClick = useHandleContactClick();
@@ -15,7 +14,7 @@ const handleContactClick = useHandleContactClick();
 
   return (
     <div
-      className="container-fluid topbar bg-primary d-none d-lg-block py-2"
+      className="container-fluid topbar bg-primary d-none d-lg-block py-1"
       style={{ borderRadius: '0 40px' }}
     >
       <div className="d-flex justify-content-between">
@@ -61,30 +60,13 @@ const handleContactClick = useHandleContactClick();
             </small>
           )}
         </div>
-
-
-        {topbarData?.topbar_text && (
+             {/* this is a apple and android icons */}
+            
+        {/* {topbarData?.topbar_text && (
           <div className="text-white text-center mx-auto d-flex align-items-center gap-2">
             <span className=''>{topbarData?.topbar_text}</span>
 
-            {/* <a
-                href={topbarData?.Button_link || '#'}
-                className="btn btn-sm rounded-pill px-3"
-              ><img
-                  src="/img/logo/playstoreimg-removebg-preview.png"
-                  alt="Google Play"
-                  className="me-2"
-                  style={{
-                    width: "28px",
-                    height: "20px",
-                    objectFit: "contain",
-                  }}
-                /></a>
-
-                <a
-                href={topbarData?.Button_link || '#'}
-                className="btn btn-sm rounded-pill px-3"
-              ><FaApple size={28} className="me-2" /></a> */}
+           
             <a
               href="#"
               className="d-flex align-items-center text-decoration-none justify-content-start p-2"
@@ -98,13 +80,11 @@ const handleContactClick = useHandleContactClick();
               onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
             >
               <FaApple size={28} />
-              {/* <div style={{ lineHeight: 1 }}>
-                   <div style={{ fontSize: 11 }}>Download on the</div>
-                   <div style={{ fontSize: 17, fontWeight: "600" }}>App Store</div>
-                 </div> */}
             </a>
 
-            {/* Google Play badge */}
+              
+
+
             <a
               href="#"
               className="d-flex align-items-center text-decoration-none justify-content-start p-2"
@@ -127,13 +107,12 @@ const handleContactClick = useHandleContactClick();
                   objectFit: "contain",
                 }}
               />
-              {/* <div style={{ lineHeight: 1 }}>
-                   <div style={{ fontSize: 11 }}>GET IT ON</div>
-                   <div style={{ fontSize: 17, fontWeight: "600" }}>Google Play</div>
-                 </div> */}
             </a>
+
+
+             
           </div>
-        )}
+        )} */}
 
         <div className="top-link pe-2">
           {topbarData?.topbar_facebook && (

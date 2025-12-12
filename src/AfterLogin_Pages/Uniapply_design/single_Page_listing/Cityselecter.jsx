@@ -48,6 +48,7 @@ function Cityselecter({
   const [cityName, setCityName] = useState(selectedCityName || "");
   const {setCityId , setcityname} = Use_Listing_Filter();
   // Fetch areas only when user selects a city
+
   const fetchCityAreas = async cityId => {
     if (!cityId) return;
     setLoadingAreas(true);
@@ -94,69 +95,100 @@ function Cityselecter({
   // const cityOptions = Allcities.map(c => ({ label: c.City_name, value: c.id }));
 
 
-  const handleDetectLocation = () => {
+const handleDetectLocation = () => {
   if (!navigator.geolocation) {
-       showToast("Geolocation is not supported by your browser", "info");
+    showToast("Geolocation is not supported by your browser", "info");
     return;
   }
-
   navigator.geolocation.getCurrentPosition(
     async (position) => {
       const { latitude, longitude } = position.coords;
-      console.log("latitude, longitude",latitude, longitude)
+
       try {
-        // Call reverse geocoding API to get city name
-        // You can use any geocoding API like OpenStreetMap Nominatim or Google Maps
         const res = await fetch(
           `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
         );
         const data = await res.json();
-        console.log("location",data);
-        const detectedCityName = data.address.city || data.address.town || data.address.village;
 
-        if (!detectedCityName) {
-           showToast("Could not detect city from your location", "error" );
+        const address = data.address;
+
+        // Best possible city-level name
+        let rawCity =
+          address.city ||
+          address.town ||
+          address.municipality ||
+          address.state_district ||
+          address.county ||
+          address.state ||
+          null;
+
+        if (!rawCity) {
+          showToast("Could not detect city", "error");
           return;
         }
 
-        // Find city object from your Allcities list
-        const detectedCity = Allcities.find(
-          (c) => c.City_name.toLowerCase() === detectedCityName.toLowerCase()
-        );
+        console.log("RAW CITY:", rawCity);
 
-        // if (!detectedCity) {
-        //   alert(`We do not have listings in ${detectedCityName}`);
-        //   return;
-        // }
+        // Clean city text
+        rawCity = rawCity.split(",")[0].toLowerCase();
 
-        // Update states just like when user selects a city
+        // Break into words
+        const words = rawCity.split(" ").map(w => w.trim());
+
+        // -------------------------------
+        // ⭐ BEST LOGIC:
+        // Check if ANY word matches ANY city in DB
+        // -------------------------------
+        let detectedCity =
+          Allcities.find(c =>
+            words.includes(c.City_name.toLowerCase())
+          );
+
+        // If still not found → check if rawCity contains DB city name
+        if (!detectedCity) {
+          detectedCity = Allcities.find(c =>
+            rawCity.includes(c.City_name.toLowerCase())
+          );
+        }
+
+        if (!detectedCity) {
+          showToast(`We do not serve this location yet`, "warning");
+          return;
+        }
+
+        // ⭐ FINAL SET
+        const labelName = `Current Location — ${detectedCity.City_name}`;
+
         setSelectedId(detectedCity.id);
+        setSelectedCityName(labelName);
         setCityId(detectedCity.id);
-        setSelectedCityName(detectedCity.City_name);
-        setcityname(detectedCity.City_name)
+        setcityname(detectedCity.City_name);
+
         setSelectedArea(null);
         setSelectedAreaName("");
-        setCityName(detectedCity.City_name);
 
-        // Persist in session storage
         localStorage.setItem("selectedCityId", detectedCity.id);
-        localStorage.setItem("selectedCityName", detectedCity.City_name);
+        localStorage.setItem("selectedCityName", labelName);
 
-        // Fetch areas for that city
         fetchCityAreas(detectedCity.id);
-
         setOpen(false);
+
+        showToast("Location found. Updating your listings.", "success");
+
       } catch (err) {
         console.error(err);
-        alert("Failed to detect city from your location");
+        showToast("Failed to detect location", "error");
       }
     },
-    (error) => {
-      console.error(error);
-      alert("Failed to get your location");
+    () => {
+      showToast("Location permission denied", "error");
     }
   );
 };
+
+
+
+
 
 const filteredCities = useMemo(() => {
   if (!query) return [...Allcities].sort((a, b) =>
@@ -227,13 +259,16 @@ const filteredCities = useMemo(() => {
                 <Crosshair size={16} className="me-1" />
                 <span className="small">Detect</span>
               </button>
+
             </div>
           </div>
 
           {/* Cities list */}
           {!activeCityId && (
             <>
-              <h6 className="fw-semibold">Popular Locations</h6>
+              <h6 className="fw-semibold">
+                {/* Popular  */}
+                Locations</h6>
               <div className="row row-cols-1 row-cols-sm-2 g-2 mb-3">
                 {cities.map(p => (
                   <div key={p.id}>
@@ -276,9 +311,9 @@ const filteredCities = useMemo(() => {
                 ))}
               </div>
 
-             <h6 className="fw-semibold">Other Locations ({Allcities.length})</h6>
+             {/* <h6 className="fw-semibold">Other Locations ({Allcities.length})</h6> */}
 
-<div
+{/* <div
   className="d-flex flex-column gap-1 p-2 border rounded"
   style={{ maxHeight: "300px", overflowY: "auto" }}
 >
@@ -327,7 +362,7 @@ const filteredCities = useMemo(() => {
   ) : (
     <p className="text-center text-muted m-0">No cities found</p>
   )}
-</div>
+</div> */}
 
 
             </>
@@ -375,6 +410,7 @@ const filteredCities = useMemo(() => {
           )}
         </div>
       )}
+
     </div>
     
     </>

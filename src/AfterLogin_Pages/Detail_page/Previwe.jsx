@@ -24,6 +24,7 @@ import Kids_Essential_Detail from "./Tabs_content/Kids Essential Detail/Kids_Ess
 import Recreational_Activities_Detail from "./Tabs_content/Reacreational/Recreational_Activities_Detail";
 import Recreational_program from "./Tabs_content/Reacreational/Recreational_program/Recreational_program";
 import { Loading } from "../../Helper/Loader";
+import Commingsoonmsg from "../Commingsoonmsg";
 
 function SchoolProfile() {
   const [activeTab, setActiveTab] = useState("Overview");
@@ -190,6 +191,13 @@ function SchoolProfile() {
     return <div className="content ">{content}</div>;
   };
 
+if (true) {
+    return (
+      <div className="flex flex-col items-center justify-center h-64 bg-gray-50 rounded-lg border border-gray-200 shadow-sm p-3 w-full col-span-3">
+        <Commingsoonmsg  />
+      </div>
+    );
+  }
 
   return (
     <div className="school-profile">

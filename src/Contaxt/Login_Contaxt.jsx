@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState , useEffect } from "react";
 import { BASE_URL } from "../Helper/Base_Url";
 import { showToast } from "../Helper/toastService";
+import { useQuery } from "@tanstack/react-query";
 
 // Create context
 const LoginContext = createContext();
@@ -15,7 +16,7 @@ export const LoginProvider = ({ children }) => {
     userId: null,
     username: null,
   });
-    const [topbarData, setTopbarData] = useState([]);
+    // const [topbarData, setTopbarData] = useState([]);
  
    useEffect(() => {
     const storedAuth = {
@@ -31,21 +32,33 @@ export const LoginProvider = ({ children }) => {
   }, []);
   
 
-  useEffect(() => {
-    const fetchTopbarData = async () => {
-      try {
-        const res = await fetch(`${BASE_URL}/topbar`); 
-        const json = await res.json();
-        if (json?.data) {
-          setTopbarData(json?.data?.[0]);
-        }
-      } catch (error) {
-        console.error('Error fetching topbar data:', error);
-      }
-    };
-    fetchTopbarData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchTopbarData = async () => {
+  //     try {
+  //       const res = await fetch(`${BASE_URL}/topbar`); 
+  //       const json = await res.json();
+  //       if (json?.data) {
+  //         setTopbarData(json?.data?.[0]);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching topbar data:', error);
+  //     }
+  //   };
+  //   fetchTopbarData();
+  // }, []);
 
+
+  const fetchTopbarData = async () => {
+  const res = await fetch(`${BASE_URL}/topbar`);
+  if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
+  const json = await res.json();
+  return json.data?.[0] || null;
+};
+
+ const { data: topbarData } = useQuery({
+    queryKey: ["topbar"],
+    queryFn: fetchTopbarData,
+  });
    const login = (data) => {
     localStorage.setItem("accessToken", data.accessToken);
     localStorage.setItem("refreshToken", data.refreshToken);
@@ -126,15 +139,13 @@ const logout = async () => {
 
 
 
-
-
   // const logout = () => {
   //   setUser(null);
   //   setToken(null);
   // };
 
   return (
-    <LoginContext.Provider value={{ login , auth , logout , topbarData, setTopbarData }}>
+    <LoginContext.Provider value={{ login , auth , logout , topbarData  }}>
       {children}
     </LoginContext.Provider>
   );

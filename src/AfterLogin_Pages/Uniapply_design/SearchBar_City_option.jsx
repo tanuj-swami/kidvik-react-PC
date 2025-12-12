@@ -67,37 +67,68 @@ const [query, setQuery] = useState(storedQuery || "");
     };
   }, [open]);
 
-  
-useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        const { latitude, longitude } = position.coords;
-         localStorage.setItem("user_latitude", latitude);
-         localStorage.setItem("user_longitude", longitude);
-        try {
-          const res = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
-          );
-          const data = await res.json();
-          const detectedCityName = data.address.city || data.address.town || data.address.village;
-          console.log(data);
-          if (!detectedCityName) return;
+// useEffect(() => {
+//     if (navigator.geolocation) {
+//       navigator.geolocation.getCurrentPosition(async (position) => {
+//         const { latitude, longitude } = position.coords;
+//          localStorage.setItem("user_latitude", latitude);
+//          localStorage.setItem("user_longitude", longitude);
+//         try {
+//           const res = await fetch(
+//             `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+//           );
+//           const data = await res.json();
+//           const detectedCityName = data.address.city || data.address.town || data.address.village;
+//           console.log(data);
+//           if (!detectedCityName) return;
 
-          const detectedCity = Allcities.find(
-            (c) => c.City_name.toLowerCase() === detectedCityName.toLowerCase()
-          );
+//           const detectedCity = Allcities.find(
+//             (c) => c.City_name.toLowerCase() === detectedCityName.toLowerCase()
+//           );
 
-          if (detectedCity) {
-            setSelectedId(detectedCity.id);
-            setSelectedCityName(detectedCity.City_name);
+//           if (detectedCity) {
+//             setSelectedId(detectedCity.id);
+//             setSelectedCityName(detectedCity.City_name);
             
-          }
-        } catch (err) {
-          console.error("Error detecting location", err);
-        }
-      });
-    }
-  }, [Allcities, selectedId]);
+//           }
+//         } catch (err) {
+//           console.error("Error detecting location", err);
+//         }
+//       });
+//     }
+//   }, [Allcities, selectedId]);
+// Auto-select Mumbai only if user has NO city selected
+// 1) Load selected city from localStorage on first render
+useEffect(() => {
+  const storedCityId = localStorage.getItem("selectedCityId");
+  const storedCityName = localStorage.getItem("selectedCityName");
+
+  if (storedCityId && storedCityName) {
+    setSelectedId(storedCityId);
+    setSelectedCityName(storedCityName);
+  }
+}, []); // run once only
+
+// 2) Auto-select Mumbai ONLY if nothing is selected (state or localStorage)
+useEffect(() => {
+  if (!Allcities?.length) return;
+
+  // If state me already city hai → Mumbai autoselect mat karo
+  if (selectedId) return;
+
+  const mumbai = Allcities.find(
+    (c) => c.City_name.toLowerCase().trim() === "mumbai"
+  );
+
+  if (mumbai) {
+    setSelectedId(mumbai.id);
+    setSelectedCityName(mumbai.City_name);
+
+    localStorage.setItem("selectedCityId", mumbai.id);
+    localStorage.setItem("selectedCityName", mumbai.City_name);
+  }
+}, [Allcities, selectedId]);
+
 
   
   return (
@@ -126,7 +157,6 @@ useEffect(() => {
           Allcities={Allcities}
           Citiesdrowen={Citiesdrowen}
           Allcityloading={Allcityloading}
-
         />
 
         <Search_bar_listing  

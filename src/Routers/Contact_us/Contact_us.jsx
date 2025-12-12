@@ -2,43 +2,45 @@ import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../../Helper/Base_Url";
 import { Loading } from "../../Helper/Loader";
 import Contact_form from "./Contact_form";
+import { useAPI } from "../../Contaxt/ALL_APi_Call/API_Call_Contaxt";
 
 function Contact_us() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  console.log("data",data)
-  // Fetch data on mount
-  
-  useEffect(() => {
-    const fetchContactUs = async () => {
-      try {
-        setLoading(true);
-        const res = await fetch(`${BASE_URL}/ContactUs`);
-        if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
-        const json = await res.json();
-        setData(json.data?.[0] || null);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const {data ,  contactLoading} = useAPI();
+  // const [data, setData] = useState(null);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
 
-    fetchContactUs();
-  }, []);
+  // useEffect(() => {
+  //   const fetchContactUs = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const res = await fetch(`${BASE_URL}/ContactUs`);
+  //       if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
+  //       const json = await res.json();
+  //       setData(json.data?.[0] || null);
+  //     } catch (err) {
+  //       setError(err.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-  if (loading) {
+  //   fetchContactUs();
+  // }, []);
+
+
+
+  if (contactLoading) {
     return <Loading />;
   }
 
-  if (error) {
-    return (
-      <div className="container text-center py-5 text-danger">
-        Error: {error}
-      </div>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <div className="container text-center py-5 text-danger">
+  //       Error: {error}
+  //     </div>
+  //   );
+  // }
 
   if (!data) return null;
 
@@ -66,7 +68,11 @@ function Contact_us() {
                 <i className="fas fa-map-marker-alt fa-2x text-primary me-4" />
                 <div>
                   <h4>{data.ContactUs_Address_head}</h4>
-                  <p className="mb-2">{data.ContactUs_Address}</p>
+                  {/* <p className="mb-2">{data.ContactUs_Address}</p> */}
+                  <p
+                    className="mb-2"
+                    dangerouslySetInnerHTML={{ __html: data.ContactUs_Address }}
+                  />
                 </div>
               </div>
             </div>
@@ -94,7 +100,7 @@ function Contact_us() {
 
           {/* Form and Map */}
           <div className="row g-5">
-          <Contact_form/>
+            <Contact_form />
 
             <div className="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
               <div className="border border-primary h-100 rounded">

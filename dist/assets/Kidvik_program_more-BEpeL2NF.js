@@ -1,0 +1,1 @@
+import{A as e,W as t,z as n}from"./index-A1ioPTrq.js";import"./GlobalOwlSlider -D0AtoCw4.js";import{t as r}from"./Kidvik_programe-BnGL62K0.js";n();var i=t(e());function a(){return(0,i.jsx)(i.Fragment,{children:(0,i.jsx)(r,{})})}var o=a;export{o as default};

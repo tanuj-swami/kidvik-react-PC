@@ -81,6 +81,7 @@ function Profile() {
           },
         }
       );
+      
       if (!res.ok) throw new Error("Failed to fetch profile");
       const data = await res.json();
       if (data?.data?.length > 0) {
@@ -155,7 +156,7 @@ function Profile() {
         }
       });
 
-      console.log("payload", payload)
+      console.log("payload", payload) 
 
       const res = await fetch(`${BASE_URL}/profile/${id}/`, {
         method: "PUT",
@@ -199,10 +200,10 @@ function Profile() {
               <div className=" p-2">
 
                 {/* Profile Form */}
-                <div className="border rounded-4 p-4 bg-light">
+                <div className="border rounded-4 p-2 bg-light">
 
                   {/* Profile Image Section */}
-                  <Row className="mb-4 align-items-center ">
+                  <Row className="align-items-center ">
                     <Col md={2} className="text-center ">
                       <div className="position-relative d-inline-block ">
                         {/* Image Preview */}
@@ -219,6 +220,7 @@ function Profile() {
                           className="rounded-circle border"
                           style={{ width: "120px", height: "120px", objectFit: "cover" }}
                         />
+
                         {/* Change Image Button */}
                         {!isEditing && (
                           <label
@@ -234,6 +236,7 @@ function Profile() {
                             <i className="bi bi-camera-fill fs-5"></i>
                           </label>
                         )}
+
 
                         {/* <Form_input
                           type="file"
@@ -256,8 +259,44 @@ function Profile() {
                                            />
 
                       </div>
-
                     </Col>
+                    <Col md={6}>
+                    </Col>
+                    <Col md={4}>
+                       <div className="d-flex justify-content-end mt-3 align-items-center mb-4 gap-3">
+                  {/* <h3 className="text-danger fw-bold">Profile</h3> */}
+                  {isEditing ? (
+                    <button
+                      className="btn btn-success"
+                      onClick={() => setIsEditing(false)}
+                    >
+                      <FaEdit className="me-2" />
+                      Edit
+                    </button>
+                  ) : (
+                    <div>
+                      <button
+                        className="btn btn-primary me-2"
+                        disabled={saving}
+                        onClick={() => handleSave(formData.id)}
+                      >
+                        {saving ? "Saving..." : "Save Changes"}
+                      </button>
+                      <button
+                        className="btn btn-outline-danger"
+                        onClick={() => setIsEditing(true)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  )}
+                   <button  className="btn btn-success" onClick={() => setShowFamilyModal(true)}>
+                            Add Family Member
+                          </button>
+                </div> 
+                     
+                    </Col>
+
 
                     {/* <Col md={4}>
 

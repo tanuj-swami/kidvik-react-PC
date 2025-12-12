@@ -98,6 +98,7 @@ function Compresive() {
                 </Link>
 
               )))}
+              
         </CardWrapper>
       </div>
       <SubCategory ref={subCategoryRef} selectedCategory={selectedCategory} />

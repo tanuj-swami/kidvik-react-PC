@@ -6,7 +6,7 @@ import CopyRight from "./CopyRight";
 import { useLogin } from "../../Contaxt/Login_Contaxt";
 import { Link, NavLink } from "react-router-dom";
 import { logUserAction } from "../../Helper/logUserAction";
-import {  useHandleContactClick } from "../../Helper/handleContactClick";
+import { useHandleContactClick } from "../../Helper/handleContactClick";
 
 const Footer = () => {
   const { topbarData } = useLogin();
@@ -31,12 +31,30 @@ const Footer = () => {
           </div>
 
           {/* Services */}
-          <div className="col-12 col-md-6 col-lg-3">
-            {/* <h5 className="fw-bold mb-3 text-white">Company</h5> */}
+          {/* <div className="col-12 col-md-6 col-lg-3">
+           
             <ul className="list-unstyled mb-3">
               {["About Us", "Partner with Us", "Privacy Policy", "Terms of Service", "Cookie Policy"].map((item, index) => (
                 <li key={index} className="mb-2">
                   <a href="#" className="text-white text-decoration-none">{item}</a>
+                </li>
+              ))}
+            </ul>
+          </div> */}
+          <div className="col-12 col-md-6 col-lg-3">
+            {/* <h5 className="fw-bold mb-3 text-white">Company</h5> */}
+            <ul className="list-unstyled mb-3">
+              {[
+                { name: "Our Story", link: "/ourstory" },
+                { name: "Partner with Us", link: "/park_listing" },
+                { name: "Privacy Policy", link: "/privacypolicy" },
+                { name: "Terms of Service", link: "/termsnconditions" },
+                { name: "Cookie Policy", link: "/cookiespolicy" },
+              ].map((item, index) => (
+                <li key={index} className="mb-2">
+                  <Link to={item.link} className="text-white text-decoration-none">
+                    {item.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -57,7 +75,7 @@ const Footer = () => {
 
             <div className="d-flex flex-wrap align-items-center gap-2">
               {/* App Store badge */}
-              <a
+              {/* <a
                 href="#"
                 className="d-flex align-items-center text-decoration-none justify-content-start p-2"
                 style={{
@@ -74,10 +92,10 @@ const Footer = () => {
                   <div style={{ fontSize: 11 }}>Download on the</div>
                   <div style={{ fontSize: 17, fontWeight: "600" }}>App Store</div>
                 </div>
-              </a>
+              </a> */}
 
               {/* Google Play badge */}
-              <a
+              {/* <a
                 href="#"
                 className="d-flex align-items-center text-decoration-none justify-content-start p-2"
                 style={{
@@ -103,9 +121,11 @@ const Footer = () => {
                   <div style={{ fontSize: 11 }}>GET IT ON</div>
                   <div style={{ fontSize: 17, fontWeight: "600" }}>Google Play</div>
                 </div>
-              </a>
-              <div className="d-flex justify-content-center justify-content-lg-start gap-2 mt-3">
+              </a> */}
+              
+              {/* <div className="d-flex justify-content-center justify-content-lg-start gap-2 mt-3">
                 {[Facebook, Instagram, Linkedin].map((Icon, idx) => (
+                  
                   <a
                     href="#"
                     key={idx}
@@ -117,7 +137,50 @@ const Footer = () => {
                     <Icon className="w-4 h-4 text-black" />
                   </a>
                 ))}
-              </div>
+              </div> */}
+               <div className="d-flex justify-content-center justify-content-lg-start gap-2 mt-3">
+          {topbarData?.topbar_facebook && (
+            <a
+              href={topbarData?.topbar_facebook}
+              className="btn btn-outline-light btn-sm p-2 d-flex align-items-center justify-content-center"
+              target="_blank"
+              rel="noreferrer"
+              style={{ transition: 'all 0.3s ease' }}
+                    onMouseEnter={e => e.currentTarget.style.backgroundColor = 'white'}
+                    onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+            >
+             <Facebook className="w-4 h-4 text-black" />
+            </a>
+          )}
+          {topbarData?.topbar_instagram && (
+            <a
+              href={topbarData?.topbar_instagram}
+              className="btn btn-outline-light btn-sm p-2 d-flex align-items-center justify-content-center"
+              target="_blank"
+              rel="noreferrer"
+              style={{ transition: 'all 0.3s ease' }}
+                    onMouseEnter={e => e.currentTarget.style.backgroundColor = 'white'}
+                    onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+            >
+             <Instagram className="w-4 h-4 text-black" />
+            </a>
+          )}
+
+          {topbarData?.topbar_linkedin && (
+            <a
+              href={topbarData?.topbar_linkedin}
+              className="btn btn-outline-light btn-sm p-2 d-flex align-items-center justify-content-center"
+              target="_blank"
+              rel="noreferrer"
+              style={{ transition: 'all 0.3s ease' }}
+                    onMouseEnter={e => e.currentTarget.style.backgroundColor = 'white'}
+                    onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+            >
+              <Linkedin className="w-4 h-4 text-black" />
+            </a>
+          )}
+        </div>
+
             </div>
           </div>
 
@@ -145,9 +208,9 @@ const Footer = () => {
                 topbarData?.topbar_phoneno && (
                   <Link to={`tel:${topbarData?.topbar_phoneno}`} >
                     <li className="d-flex align-items-center mb-2"
-                       onClick={(e) =>
-                          handleContactClick(e, "call", topbarData?.topbar_phoneno, "Footer Home Page")
-                        }
+                      onClick={(e) =>
+                        handleContactClick(e, "call", topbarData?.topbar_phoneno, "Footer Home Page")
+                      }
                     >
                       <Phone className="me-2 text-white" /> {topbarData?.topbar_phoneno}
                     </li>
@@ -157,18 +220,15 @@ const Footer = () => {
 
               {
                 topbarData?.topbar_address && (
-                  <li className="d-flex align-items-center mb-2"
-
-                  >
+                  <li className="d-flex align-items-center mb-2">
                     <MapPin className="me-2 text-white mt-1" />
                     <span>
                       {topbarData?.topbar_address}<br />
-
                     </span>
                   </li>
-
                 )
               }
+
             </ul>
           </div>
 

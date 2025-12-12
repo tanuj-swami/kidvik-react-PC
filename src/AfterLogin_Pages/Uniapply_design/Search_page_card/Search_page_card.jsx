@@ -9,7 +9,7 @@ import CityLocationPicker from "../SearchBar_City_option";
 import { logUserAction } from "../../../Helper/logUserAction";
 import { FaStar, FaGem, FaCrown, FaLeaf, FaHome, FaEye, FaMapMarkerAlt,FaMapMarked, FaPhoneAlt, FaWhatsapp, FaGlobe } from "react-icons/fa"; // import icons
 import { calculateDistance } from "../../../Helper/calculateDistance";
-
+import Commingsoonmsg from "../../Commingsoonmsg";
 
 
 function Search_page_card() {
@@ -43,7 +43,7 @@ function Search_page_card() {
           console.error("Error logging remove compare action:", err)
         );
       } else {
-        if (prev.length >= 3) {
+        if (prev.length >= 3 ) {
           showToast(`You can only compare up to 3 listings`, "error");
           return prev;
         }
@@ -75,7 +75,6 @@ function Search_page_card() {
     compareList.includes(s.PartnerMaster_id)
   );
 
-  // Reset compare list when category or subcategory changes
   useEffect(() => {
     // Only clear if compareList is not empty
     if (compareList.length > 0) {
@@ -86,17 +85,7 @@ function Search_page_card() {
     }
   }, [state.category_id, state.sub_category_id]);
 
-  // const handleClick = async (e, list) => {
-  //   e.preventDefault(); 
-  //   try {
-  //     await logUserAction("user", "Click on View Listing", "Explore Page", list?.PartnerMaster_id);
-  //   } catch (error) {
-  //     console.error("Error logging partner click:", error);
-  //   }
 
-  //   // Navigate manually after logging
-  //   navigate(`/partner/${list.slug}`);
-  // };
 
   // ✅ Validates a proper 10-digit Indian mobile number (not starting with 0)
   const validateIndianNumber = (num) => {
@@ -104,6 +93,31 @@ function Search_page_card() {
     const regex = /^[6-9]\d{9}$/; // must start with 6-9 and be 10 digits
     return regex.test(cleaned);
   };
+
+  const handleCompareRedirect = () => {
+  const count = selectedSchools.length;
+
+  if (count < 2) {
+    showToast("Please select at least 2 schools to compare.", "error");
+    return;
+  }
+
+  if (count > 3) {
+    showToast("You can compare a maximum of 3 schools.", "error");
+    return;
+  }
+
+  // Allowed → go to compare page
+  navigate(`/compare/?ids=${selectedSchools.map(s => s.PartnerMaster_id).join(",")}`);
+};
+
+if (true) {
+    return (
+      <div className="flex flex-col items-center justify-center h-64 bg-gray-50 rounded-lg border border-gray-200 shadow-sm p-3 w-full col-span-3">
+        <Commingsoonmsg  />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -123,12 +137,14 @@ function Search_page_card() {
                 <Loading />
               </div>
             ) : state.filtered_Listing.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-64 bg-gray-50 rounded-lg border border-gray-200 shadow-sm p-3 w-full col-span-3">
+             
+             <div className="flex flex-col items-center justify-center h-64 bg-gray-50 rounded-lg border border-gray-200 shadow-sm p-3 w-full col-span-3">
                 <h2 className="text-xl font-semibold text-gray-800 mb-2">
                   No listings found
                 </h2>
                 <p className="text-gray-500 text-sm">Try changing your filters or selecting another city.</p>
               </div>
+
             ) : (
               state.filtered_Listing.map((list) => {
                 const distance =
@@ -138,6 +154,7 @@ function Search_page_card() {
                 return (
                   <div className="school-card" key={list.PartnerMaster_id}>
                     <div className="school-image-container">
+                      <Link to={`/partner/${list.slug}`}>
                       <img
                         src={
                           list?.logo
@@ -147,6 +164,9 @@ function Search_page_card() {
                         alt={list.listing_name}
                         className="school-image"
                       />
+                      
+                      
+                      </Link>
                       <span
                         className="status-badge d-flex align-items-center gap-1 px-2 py-1 rounded"
 
@@ -156,7 +176,7 @@ function Search_page_card() {
                     </div>
 
                     <div className="school-content">
-                      <NavLink to={`/partner/${list.slug}`}
+                      <Link to={`/partner/${list.slug}`}
                         onClick={(e) => handleClick(e, list)}
                       >
                         <h5 className="school-name">{list.listing_name}</h5>
@@ -165,7 +185,7 @@ function Search_page_card() {
                           {list?.area?.Location_name || "Unknown Area"},{" "}
                           {list?.city?.City_name || "Unknown City"}
                         </p>
-                      </NavLink>
+                      </Link>
                       {/* <p>{calculateDistance(userLat, userLon, list?.Latitude, list?.longitute)} km away</p> */}
 
                       <p className="school-distance d-flex align-items-center gap-1 m-0">
@@ -220,31 +240,31 @@ function Search_page_card() {
                         )}
 
                         {list.website && (
-                          <a href={list.website} target="_blank" rel="noopener noreferrer">
+                          <NavLink to={list.website} target="_blank" rel="noopener noreferrer">
                             <button className="icon-btn" title="Visit Website">
                               <FaGlobe size={20} />
                             </button>
-                          </a>
+                          </NavLink>
                         )}
 
                         {list.list_mobno && (
-                          <a href={`tel:${list.list_mobno}`}>
+                          <NavLink to={`tel:${list.list_mobno}`}>
                             <button className="icon-btn" title="Call Now">
                               <FaPhoneAlt size={20} />
                             </button>
-                          </a>
+                          </NavLink>
                         )}
 
                         {validateIndianNumber(list.whats_up) && (
-                          <a
-                            href={`https://wa.me/91${list.whats_up}`}
+                          <NavLink
+                            to={`https://wa.me/91${list.whats_up}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
                             <button className="icon-btn " title="Chat on WhatsApp">
                               <FaWhatsapp size={20} />
                             </button>
-                          </a>
+                          </NavLink>
                         )}
                       </div>
 
@@ -272,13 +292,11 @@ function Search_page_card() {
               onMouseEnter={() => setHover(true)}
               onMouseLeave={() => setHover(false)}
             >
-              <Link to={`/compare/?ids=${selectedSchools.map(s => s.PartnerMaster_id).join(",")}`}
-
-              >
-                <button className="compare-btn">
+              {/* <Link to={`/compare/?ids=${selectedSchools.map(s => s.PartnerMaster_id).join(",")}`}> */}
+                <button className="compare-btn" onClick={handleCompareRedirect}>
                   COMPARE <span > {selectedSchools.length}</span>
                 </button>
-              </Link>
+              {/* </Link> */}
 
               {hover && (
                 <div className="schools-tooltip">

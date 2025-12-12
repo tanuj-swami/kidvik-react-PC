@@ -17,6 +17,12 @@ function Login() {
   const [isAccepted, setIsAccepted] = useState(false);
   const [isFirstDone, setIsFirstDone] = useState(false);
   const [error, setError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const [userExist, setUserExist] = useState(null);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   //   const [login_Loading , setloading] = useState(false);
 
   const navigate = useNavigate();
@@ -26,8 +32,15 @@ function Login() {
 
   // handle Send OTP
   const handleSendOtp = async (e) => {
-    setloading(true);
     e.preventDefault();
+
+    if (!/^[6-9]\d{9}$/.test(phone)) {
+      showToast("Please enter a valid 10-digit Indian mobile number.", "error");
+      return;
+    }
+
+
+    setloading(true);
     try {
       const response = await fetch(`${BASE_URL}/login/`, {
         method: "POST",
@@ -38,8 +51,10 @@ function Login() {
       });
 
       const data = await response.json();
+      console.log("data", data)
       if (response.ok) {
         showToast(data.message, "success")
+        setUserExist(data.user_exist);
         setShowOtp(true);
         setIsFirstDone(data?.first_time_login);
         console.log(data);
@@ -58,6 +73,26 @@ function Login() {
 
   const Verifyuser = async (e) => {
     e.preventDefault();
+    if (userExist === false) {
+      // For new user (Create Password)
+      if (passwordError) {
+        showToast("Please enter a valid password.", "error");
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showToast("Passwords do not match.", "error");
+        return;
+      }
+    }
+
+    if (isFirstDone && !isAccepted) {
+      showToast("Please accept Terms & Conditions.", "error");
+      return;
+    }
+
+
+
     setloading(true);
     try {
       const response = await fetch(`${BASE_URL}/login/`, {
@@ -67,7 +102,10 @@ function Login() {
         },
         body: JSON.stringify({
           mobile_number: phone,
-          otp: otp
+          user_exist: userExist,
+          password: password
+          // otp: otp
+
         }),
       });
       const data = await response.json();
@@ -75,7 +113,8 @@ function Login() {
       if (response.ok) {
         console.log("data", data);
         showToast(data.message, "success")
-
+        setPassword("")
+        setConfirmPassword("");
         login({
           accessToken: data.data.access,
           refreshToken: data.data.refresh,
@@ -97,17 +136,52 @@ function Login() {
     }
 
   }
+
+
   const handleChange = (e) => {
-    const val = e.target.value.replace(/\D/g, ""); // सिर्फ digit
+    const val = e.target.value.replace(/\D/g, "");
+
     if (val.length <= 10) {
       setPhone(val);
     }
-    if (val.length > 0 && val.length < 10) {
-      setError("Please enter a 10-digit mobile number");
-    } else {
+
+    if (val === "") {
       setError("");
+      return;
+    }
+
+    if (!/^[6-9]/.test(val)) {
+      setError("Indian numbers start with 6, 7, 8, or 9");
+      return;
+
+    }
+
+    if (val.length < 10) {
+      setError("Please enter a 10-digit mobile number");
+      return;
+    }
+
+    // 3) Valid number
+    setError("");
+  };
+
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setPassword(value);
+
+    // Regex: Minimum 8 characters, at least 1 letter, 1 special char
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+
+    if (!passwordRegex.test(value)) {
+      setPasswordError(
+        "Password must be at least 8 characters and include 1 letter and 1 special character"
+      );
+    } else {
+      setPasswordError("");
     }
   };
+
 
   useEffect(() => {
     if (!isFirstDone) {
@@ -119,153 +193,260 @@ function Login() {
 
 
   return (
-    <div className="container-fluid d-flex align-items-center justify-content-center min-vh-100 bg-light p-3 rounded-10">
+    <div className="container-fluid d-flex align-items-center justify-content-center min-vh-100 bg-light ">
       <div
-        className="card shadow-lg border-1 rounded-4"
+        className="card shadow border-3 rounded-4"
         style={{ maxWidth: "400px", width: "100%" }}
       >
-        <div className="card-body text-center p-5 bg-light">
+        <div className="card-body text-center p-4">
+
           {/* Logo */}
           <img
             src="/img/logo/Kidvik_Final_logo01.jpg.png"
             alt="Kidvik Logo"
             className="mb-4 img-fluid"
-            style={{ width: "120px", height: "120px", objectFit: "contain" }}
+            style={{ width: "110px", height: "110px", objectFit: "contain" }}
           />
 
-          {/* Conditional UI */}
+          {/* MAIN LOGIN UI */}
           {!isPartnerLogin ? (
             <>
               {!showOtp ? (
                 <>
-                  {/* Phone Number Login */}
-                  <h4 className="fw-bold mb-2">Add Your Phone Number</h4>
+                  <h4 className="fw-bold mb-1">Enter Your Phone Number</h4>
                   <p className="text-muted small mb-4">
-                    Enter your phone number in order to send your OTP security code.
+                    We’ll send you a 6-digit verification code.
                   </p>
 
-                  <div className="row   mb-3">
-                    {/* Country Code Select */}
-                    <div className="col-lg-4 col-sm-2">
+                  {/* Phone Number Row */}
+                  <div className="row g-2 mb-3 align-items-center">
+
+                    {/* Country Code */}
+                    {/* <div className="col-4 col-sm-3 col-md-4">
                       <select
-                        className="form-select rounded-pill py-2 shadow-sm text-primary fw-semibold text-center"
-                        // style={{ minWidth: "120px" }}
+                        className="form-select py-2 px-2 shadow-sm text-primary fw-semibold border-primary"
+                        style={{ borderRadius: "6px" }}
                       >
-                        <option value="IN">🇮🇳 +91</option>
+                        <option value="IN">+91</option>
                       </select>
+                    </div> */}
+
+                    <div className="col-4 col-sm-3 col-md-4 d-flex align-items-center justify-content-center">
+                      <span
+                        className="form-control border-primary text-center py-2 px-2 shadow-sm text-primary fw-semibold"
+                        style={{ borderRadius: "6px", backgroundColor: "#fff", pointerEvents: "none" }}
+                      >
+                        +91
+                      </span>
                     </div>
 
-                    {/* Phone Number Input */}
-                    <div className="col-lg-8  col-sm-9">
-                      <form id="mobilnumberform" onSubmit={handleSendOtp} className="w-100">
+
+                    {/* Input */}
+                    <div className="col-8 col-sm-9 col-md-8">
+                      <form id="mobilnumberform" onSubmit={handleSendOtp}>
                         <input
                           type="tel"
-                          className="form-control border-2 border-primary rounded-pill py-2 shadow-sm"
+                          className="form-control border-primary py-2 px-3 shadow-sm"
                           placeholder="Enter phone number"
                           value={phone}
                           onChange={handleChange}
                           maxLength={10}
                           pattern="\d{10}"
                           required
+                          style={{ borderRadius: "6px" }}
                         />
                       </form>
                     </div>
                   </div>
 
+                  {error && (
+                    <small className="text-danger d-block mb-2">{error}</small>
+                  )}
 
-                  {error && <small style={{ color: "red" }}>{error}</small>}
-
+                  {/* Send OTP Button */}
                   <button
-                    className="btn btn-primary w-100 mb-3"
-                    type="submit" form="mobilnumberform"
+                    className="btn btn-primary w-100 py-2 fw-semibold mb-3"
+                    form="mobilnumberform"
+                    type="submit"
+                    style={{ borderRadius: "8px" }}
                   >
-                    {login_Loading ? <><ButtonLoading /> Send Otp..</> : 'Send OTP'}
+                    {login_Loading ? (
+                      <>
+                        <ButtonLoading /> Processing….
+                      </>
+                    ) : (
+                      "Continue"
+                    )}
                   </button>
-
-                  <button className="btn btn-primary w-100 mb-4">
-                    Continue as Guest
-                  </button>
-
-                  {/* Social Login */}
-                  {/* <div className="d-flex justify-content-center gap-3 mb-4">
-                    <button className="btn btn-light border">
-                      <FaGoogle className="text-danger fs-4" />
-                    </button>
-                    <button className="btn btn-light border">
-                      <FaFacebook className="text-primary fs-4" />
-                    </button>
-                  </div> */}
                 </>
               ) : (
                 <>
-                  {/* OTP UI */}
-                  <h4 className="fw-bold mb-2">Enter OTP</h4>
-                  {/* <div className="input-group mb-3"> */}
-                  <form onSubmit={Verifyuser} id="Verifyuserform">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Enter OTP"
-                      value={otp}
-                      onChange={(e) => setOtp(e.target.value)}
-                      required
-                    />
-                  </form>
+                  <div className="text-start mb-3">
+                    <button
+                      type="button"
+                      className="btn btn-link text-primary fw-semibold p-0"
+                      onClick={() => {
+                        setShowOtp(false);
+                        setPassword("");
+                        setConfirmPassword("");
+                      }}
+                      style={{ textDecoration: "none" }}
+                    >
+                      ← Back
+                    </button>
+                  </div>
+                    <p className="text-primary fw-semibold mb-2">
+                        Verifying Mobile: <span className="fw-bold">{phone}</span>
+                      </p>
 
-                  {/* </div> */}
-                  {isFirstDone && (
-                    <div className="form-check mb-3">
+                  {userExist === true ? (
+                    <>
+                    
+                    <h4 className="fw-bold mb-2">Enter Password</h4>
+                    {/* <p className="text-muted small mb-3">
+                    Enter the 6-digit code we sent to your mobile.
+                 </p> */}
+
+                    <form onSubmit={Verifyuser} id="Verifyuserform">
                       <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="termsCheck"
-                        checked={isAccepted}
-                        onChange={(e) => setIsAccepted(e.target.checked)}
+                        type="password"
+                        className="form-control mb-3 py-2 shadow-sm"
+                        placeholder="Enter Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
                       />
-                      <label className="form-check-label small" htmlFor="termsCheck">
-                        I accept the Terms & Conditions
-                      </label>
 
-                    </div>
+                    </form>
+
+                    {isFirstDone && (
+                      <div className="form-check mt-3 text-start">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="termsCheck"
+                          checked={isAccepted}
+                          onChange={(e) => setIsAccepted(e.target.checked)}
+                        />
+                        <label className="form-check-label small" htmlFor="termsCheck">
+                          I accept the Terms & Conditions
+                        </label>
+                      </div>
+                    )}
+
+                    <button
+                      type="submit"
+                      className="btn btn-primary w-100 mt-3 py-2 fw-semibold"
+                      form="Verifyuserform"
+                      disabled={!isAccepted || login_Loading}
+                      style={{ borderRadius: "8px" }}
+                    >
+                      {login_Loading ? (
+                        <>
+                          <ButtonLoading />  Logging In…
+                        </>
+                      ) : (
+                        "Login"
+                      )}
+                    </button>
+                  </>
+                  ) : (
+                    <>
+                      <h4 className="fw-bold mb-2">Create Your Password</h4>
+                      <form onSubmit={Verifyuser} id="Verifyuserform">
+
+                        <input
+                          type="password"
+                          className="form-control mb-1 py-2 shadow-sm"
+                          placeholder="Password"
+                          value={password}
+                          onChange={handlePasswordChange}
+                          required
+                        />
+
+                        {passwordError && (
+                          <small className="text-danger d-block mb-2">{passwordError}</small>
+                        )}
+
+                        <input
+                          type="password"
+                          className="form-control mb-3 py-2 shadow-sm"
+                          placeholder="Confirm Password"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          required
+                        />
+
+                        {password && confirmPassword && password !== confirmPassword && (
+                          <small className="text-danger">
+                            Passwords do not match
+                          </small>
+                        )}
+
+                        {isFirstDone && (
+                          <div className="form-check mt-3 text-start">
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              id="termsCheck"
+                              checked={isAccepted}
+                              onChange={(e) => setIsAccepted(e.target.checked)}
+                            />
+                            <label className="form-check-label small" htmlFor="termsCheck">
+                              I accept the Terms & Conditions
+                            </label>
+                          </div>
+                        )}
+
+                        <button
+                          type="submit"
+                          className="btn btn-primary w-100 mt-3 py-2 fw-semibold"
+                          form="Verifyuserform"
+                          disabled={!isAccepted || login_Loading || password !== confirmPassword}
+                          style={{ borderRadius: "8px" }}
+                        >
+                          {login_Loading ? <><ButtonLoading /> Creating…</> : "Create Account"}
+                        </button>
+
+                      </form>
+
+
+                    </>
                   )}
 
-                  <button type="submit" className="btn btn-primary w-100 mb-3 mt-3" form="Verifyuserform"
-                    disabled={!isAccepted || login_Loading}>{login_Loading ? <> <ButtonLoading /> Verify OTP.. </> : 'Verify OTP'}</button>
 
-                  {/* Checkbox if is_first_done true */}
+
+
+
+
+
                 </>
               )}
 
-              {/* Terms */}
-              <p className="small text-muted mb-2">
-                By continuing, you agree to{" "}
-                <a
-                  href="#"
-                  className="text-decoration-none text-primary fw-semibold"
-                >
-                  Terms of Service
+              {/* Terms + Privacy */}
+              <p className="small text-muted mt-3 mb-2">
+                By continuing, you agree to our{" "}
+                <a href="/termsnconditions" className="text-primary fw-semibold">
+                  Terms
                 </a>{" "}
                 &{" "}
-                <a
-                  href="#"
-                  className="text-decoration-none text-primary fw-semibold"
-                >
+                <a href="/privacypolicy" className="text-primary fw-semibold">
                   Privacy Policy
                 </a>
                 .
               </p>
 
-              {/* Partner Login Link */}
-              <a
-                href="#"
-                className="text-primary fw-bold"
+              {/* Partner Login */}
+              <button
+                className="btn btn-link text-primary fw-bold mt-2"
                 onClick={(e) => {
                   e.preventDefault();
                   setIsPartnerLogin(true);
                 }}
+                style={{ textDecoration: "none" }}
               >
-                <i className="fas fa-user-shield me-2"></i> Partners Login
-              </a>
+                <i className="fas fa-user-shield me-2"></i> Partner Login
+              </button>
             </>
           ) : (
             <Partnerlogin setIsPartnerLogin={setIsPartnerLogin} />
@@ -273,6 +454,7 @@ function Login() {
         </div>
       </div>
     </div>
+
   );
 }
 

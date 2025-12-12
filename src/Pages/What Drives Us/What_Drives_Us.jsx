@@ -11,7 +11,7 @@ const values = [
     icon: Heart,
     title: "child Oriented",
     description:
-      "Every decision we make puts parents and children at the center. We understand the challenges of parenting and build solutions that truly help.",
+      "Every decision we make puts  children at the center. We understand the challenges of parenting and build solutions that truly help.",
     color: "#ef4444", // red
   },
   {
@@ -37,38 +37,39 @@ const values = [
   },
 ];
 
-const stats = [
-  {
-    icon: Users,
-    number: "10,000+",
-    label: "Happy Families",
-    description: "Parents trust Kidvik for their family needs",
-    color: "#0d6efd",
-  },
-  {
-    icon: Shield,
-    number: "5,000+",
-    label: "Verified Services",
-    description: "Thoroughly vetted and reviewed providers",
-    color: "#0d6efd",
-  },
-  {
-    icon: Award,
-    number: "50+",
-    label: "Cities",
-    description: "Growing presence across the country",
-    color: "#0d6efd",
-  },
-  {
-    icon: Clock,
-    number: "24/7",
-    label: "Support",
-    description: "Always here when you need us",
-    color: "#0d6efd",
-  },
-];
+// const stats = [
+//   {
+//     icon: Users,
+//     number: "10,000+",
+//     label: "Happy Families",
+//     description: "Parents trust Kidvik for their family needs",
+//     color: "#0d6efd",
+//   },
+//   {
+//     icon: Shield,
+//     number: "5,000+",
+//     label: "Verified Services",
+//     description: "Thoroughly vetted and reviewed providers",
+//     color: "#0d6efd",
+//   },
+//   {
+//     icon: Award,
+//     number: "50+",
+//     label: "Cities",
+//     description: "Growing presence across the country",
+//     color: "#0d6efd",
+//   },
+//   {
+//     icon: Clock,
+//     number: "24/7",
+//     label: "Support",
+//     description: "Always here when you need us",
+//     color: "#0d6efd",
+//   },
+// ];
 
 // Styled component for hover effect
+
 const Card = styled.div`
   transition: transform 0.3s, box-shadow 0.3s;
   background-color: ${(props) => props.bg || "#fff"};
@@ -105,14 +106,15 @@ const What_Drives_Us = ({ showCards = true }) => {
       {/* Values Section */}
       <div className="container mb-5">
         {/* <h3 className="text-center mb-5 fw-bold">What Drives Us</h3> */}
-        <TopHeadingBar icon={<FaCogs />} Topheading="What Drives Us" firstHeading="Guided by Purpose" secondHeading=", Inspired by Families" description="At the heart of everything we do lies a deep commitment to parents, safety, and community.
-       We believe every decision should make life simpler, safer, and more connected for families.." />
-       <Link to="about">
-       
-        <div className="text-center m-2">
+        <TopHeadingBar icon={<FaCogs />} Topheading="What Drives Us" firstHeading="Guided by Purpose" secondHeading=", Inspired by Families" description="At the heart of everything we do is our unwavering belief that parenting should feel supported, not stressful. We’re inspired by the challenges families face every day — and we’re here to make those moments a little easier.
+          Our platform connects parents with trusted local services through a simple, transparent process that saves time and builds confidence. Whether you’re searching for schools, doctors, or activities, you can explore, compare, and connect — all in one safe, reliable space.
+          We’re not just simplifying searches; we’re strengthening communities. Every decision made here is one step toward a more connected, confident, and caring world for families. Because when parents thrive, children do too." />
+      
+        <Link to="about">
+          {/* <div className="text-center m-2">
           <button className="btn btn-primary ">Read More</button>
-        </div>
-       </Link>
+        </div> */}
+        </Link>
         {
           showCards && (
             <>

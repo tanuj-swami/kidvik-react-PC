@@ -82,18 +82,18 @@ function Blog() {
                     </span>
                     <span>
                       <i className="fas fa-user me-1"></i>
-                      {item.keywords || "Author"}
+                         {item.keywords || "Author"}
                     </span>
                   </div>
 
                   {/* View Button */}
-                  <NavLink
+                  {/* <NavLink
                     // to={`/blog/${item.slug}`}
                     to="/"
                     className="btn btn-primary btn-sm mt-auto"
                   >
                     View
-                  </NavLink>
+                  </NavLink> */}
                 </div>
                 
               </div>

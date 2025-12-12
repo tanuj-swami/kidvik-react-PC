@@ -9,10 +9,13 @@ import { Listing_Provider } from './AfterLogin_Pages/Listing_contaxt/Listing_Con
 import { APIProvider } from './Contaxt/ALL_APi_Call/API_Call_Contaxt.jsx'
 import smoothscroll from "smoothscroll-polyfill";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 smoothscroll.polyfill();
 
+const queryClient = new QueryClient();
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+        <QueryClientProvider client={queryClient}>    {/* 🔥 ADD THIS */}
     <LoginProvider>
       <PartnerLoginProvider>
         <FilterProvider>
@@ -24,5 +27,6 @@ createRoot(document.getElementById('root')).render(
         </FilterProvider>
       </PartnerLoginProvider>
     </LoginProvider>
+     </QueryClientProvider>  
   </StrictMode>,
 )

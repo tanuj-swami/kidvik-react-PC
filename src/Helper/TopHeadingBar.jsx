@@ -14,7 +14,7 @@ function TopHeadingBar({ icon, Topheading, firstHeading, secondHeading, descript
             </h2>
             <p className="text-muted mx-auto" style={{ maxWidth: "700px" }}>
               {description}
-              discover, compare, and connect with trusted local services.
+              {/* discover, compare, and connect with trusted local services. */}
             </p>
           </div>
   </>

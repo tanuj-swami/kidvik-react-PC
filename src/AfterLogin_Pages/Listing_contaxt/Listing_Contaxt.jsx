@@ -17,6 +17,7 @@ const [subLoading, setSubLoading] = useState(false);
 const [cityId , setCityId] = useState(() => localStorage.getItem("selectedCityId") || null);
 const [cityname , setcityname] = useState(()=> localStorage.getItem("selectedCityName") || null)
 const [Area , setArea] = useState([])
+
 const[LoadingArea , setLoadingArea] = useState(false);
 useEffect(() => {
     const fetchData = async () => {

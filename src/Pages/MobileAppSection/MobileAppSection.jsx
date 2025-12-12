@@ -276,7 +276,7 @@ function MobileAppSection() {
               Rate and review services
             </li>
           </FeatureList>
-          <Buttons>
+          {/* <Buttons>
              <a
                href="#"
                className="d-flex align-items-center text-decoration-none justify-content-start p-2"
@@ -322,7 +322,7 @@ function MobileAppSection() {
       <div style={{ fontSize: 17, fontWeight: "600" }}>Google Play</div>
     </div>
   </a>
-          </Buttons>
+          </Buttons> */}
           {/* <Stats>
             <span className="star"><FaStar /></span>
             <span className="rating">4.8/5 Rating</span>
