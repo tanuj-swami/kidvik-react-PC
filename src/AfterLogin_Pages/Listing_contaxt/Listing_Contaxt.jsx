@@ -26,7 +26,7 @@ useEffect(() => {
           setShowCityPrompt(true)
          } 
       try {
-        const res = await fetch(`${BASE_URL}/partner_master/?city_id=${cityId}`);
+        const res = await fetch(`${BASE_URL}/partner_master/?city_id=${cityId}&park_status_id=${2}`);
         if (!res.ok) throw new Error("Failed to fetch data");
         const data = await res.json();
         dispatch({ type: "SET_LISTING_DATA", payload: data.data || [] });

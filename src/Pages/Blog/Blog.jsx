@@ -44,6 +44,7 @@ function Blog() {
         <GlobalSlider>
           {blogs.map((item) => (
             <div key={item.blog_id} className="p-2">
+
               <div className="card h-100 shadow-sm small-card">
                 
                 {/* Blog Image */}
@@ -97,6 +98,7 @@ function Blog() {
                 </div>
                 
               </div>
+              
             </div>
           ))}
         </GlobalSlider>

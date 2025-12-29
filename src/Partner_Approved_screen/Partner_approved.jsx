@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useRef } from "react";
 import {
   Spinner,
   Container,
@@ -20,53 +20,51 @@ import {
 import { MdCreditScore } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import DataTable from "react-data-table-component";
+import { useQuery } from "@tanstack/react-query";
+
+  const fetchPartners = async () => {
+  const res = await fetch(`${BASE_URL}/partner_master/?order_by=-PartnerMaster_id`);
+  const data = await res.json();
+
+  if (Array.isArray(data)) return data;
+  if (Array.isArray(data?.data)) return data.data;
+
+  return [];
+};
+
+  const fetchStatuses = async () => {
+  const res = await fetch(`${BASE_URL}/park_status/`);
+  const data = await res.json();
+  return Array.isArray(data?.data) ? data.data : [];
+};
+
 
 function Partner_approved() {
-  const [partners, setPartners] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(true);
+  const dataTableRef = useRef(null);
   const [selectedRows, setSelectedRows] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [updating, setUpdating] = useState(false);
-  const [statuses, setStatuses] = useState([]); // ✅ All park statuses
-  const [selectedStatus, setSelectedStatus] = useState(""); // ✅ Selected dropdown value
+  const [selectedStatus, setSelectedStatus] = useState(""); 
   const [remarks, setRemarks] = useState("");
   const navigate = useNavigate();
 
-  // ✅ Fetch partners
-  const fetchPartners = () => {
-    setLoading(true);
-    fetch(`${BASE_URL}/partner_master/?order_by=-PartnerMaster_id`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) {
-          setPartners(data);
-        } else if (Array.isArray(data?.data)) {
-          setPartners(data.data);
-        }
-      })
-      .catch((err) => console.error("Error fetching partner:", err))
-      .finally(() => setLoading(false));
-  };
+  const {
+    data: partners = [],
+    isLoading : loading,
+     refetch: refetchPartners,
+  } = useQuery({
+    queryKey: ["partners"],
+    queryFn: fetchPartners,
+    staleTime: 1000 * 60 * 5,
+  });
 
-  // ✅ Fetch statuses
-  const fetchStatuses = () => {
-    fetch(`${BASE_URL}/park_status/`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data?.data)) {
-          setStatuses(data.data);
-        }
-      })
-      .catch((err) => console.error("Error fetching statuses:", err));
-  };
+  const { data: statuses = [] } = useQuery({
+    queryKey: ["park-status"],
+    queryFn: fetchStatuses,
+    staleTime: 1000 * 60 * 10,
+  });
 
-  useEffect(() => {
-    fetchPartners();
-    fetchStatuses();
-  }, []);
-
-  // ✅ Search filter
   const filteredPartners = partners.filter((item) =>
     Object.values(item).some((val) =>
       String(val).toLowerCase().includes(searchTerm.toLowerCase())
@@ -102,10 +100,10 @@ function Partner_approved() {
 
       if (res.ok) {
         showToast("Park Status updated successfully ");
-        fetchPartners(); // refresh table
+        refetchPartners(); 
         setRemarks("");
         setSelectedStatus("");
-        setSelectedRows([]);
+        setSelectedRows([]); 
       } else {
         alert("Failed to update status ❌");
       }
@@ -319,13 +317,20 @@ const columns = [
   paddingBottom: "10px" 
 }}>
   <DataTable
+    ref={dataTableRef}  
     columns={columns}
     data={filteredPartners}
     pagination
     highlightOnHover
     striped
     responsive
+    selectableRows
+     selectableRowsHighlight
+    onSelectedRowsChange={({ selectedRows }) =>
+    setSelectedRows(selectedRows)
+  }
     defaultSortFieldId={1}
+     clearSelectedRows={selectedRows.length === 0}
     subHeader
     customStyles={{
       tableWrapper: {
@@ -377,6 +382,7 @@ const columns = [
         },
       },
     }}
+
   />
 </div>
 

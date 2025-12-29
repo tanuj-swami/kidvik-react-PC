@@ -9,13 +9,64 @@ import FilterableSelect from "../../../Helper/FilterableSelect";
 import { BiPlus, BiPencil } from "react-icons/bi"; // BiPlus = Bootstrap plus icon
 import ButtonLoading from "../../../Helper/ButtonLoading";
 import { showToast } from "../../../Helper/toastService";
+import { useQuery } from "@tanstack/react-query";
+
+const customStyles = {
+  tableWrapper: {
+    style: {
+      overflowX: "auto",
+    },
+  },
+  headRow: {
+    style: {
+      backgroundColor: "#68c597",
+      color: "#fff",
+      fontSize: "13px",
+      fontWeight: "600",
+      textTransform: "uppercase",
+    },
+  },
+  headCells: {
+    style: {
+      padding: "12px",
+      justifyContent: "flex-start",
+      whiteSpace: "nowrap",
+    },
+  },
+  rows: {
+    style: {
+      minHeight: "56px", // ✅ SAME height for all rows
+      alignItems: "center",
+      "&:hover": {
+        backgroundColor: "#f1fdf3",
+        cursor: "pointer",
+      },
+    },
+  },
+  cells: {
+    style: {
+      padding: "10px 12px",
+      fontSize: "13px",
+      lineHeight: "1.4",
+      alignItems: "center",
+      display: "flex",
+    },
+  },
+  pagination: {
+    style: {
+      borderTop: "1px solid #eee",
+      paddingTop: "12px",
+    },
+  },
+};
+
 
 
 function Show_Listing() {
   const [listings, setListings] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [filteredListings, setFilteredListings] = useState([]);
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const { partnerAuth } = usePartnerLogin();
   const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -58,38 +109,85 @@ function Show_Listing() {
   }, [searchTerm, listings]);
 
 
-  const fetchData = async () => {
-    let url = "";
+  
+  // const fetchData = async () => {
+  //   let url = "";
 
-    if (partnerAuth?.userType === "IH" && partnerAuth?.code === "AD") {
-      url = `${BASE_URL}/partner_master/`;
-    } else if (partnerAuth?.userType === "IH" && partnerAuth?.code === "SE") {
-      url = `${BASE_URL}/partner_master/?sales_user=${partnerAuth.user_id}`;
-    } else if (partnerAuth?.userType === "PR") {
-      url = `${BASE_URL}/partner_master/?partner_user=${partnerAuth.user_id}`;
-    } else {
-      url = `${BASE_URL}/partner_master/?created_user_id=${partnerAuth.user_id}`;
-    }
+  //   if (partnerAuth?.userType === "IH" && partnerAuth?.code === "AD") {
+  //     url = `${BASE_URL}/partner_master/`;
+  //   } else if (partnerAuth?.userType === "IH" && partnerAuth?.code === "SE") {
+  //     url = `${BASE_URL}/partner_master/?sales_user=${partnerAuth.user_id}`;
+  //   } else if (partnerAuth?.userType === "PR") {
+  //     url = `${BASE_URL}/partner_master/?partner_user=${partnerAuth.user_id}`;
+  //   } else {
+  //     url = `${BASE_URL}/partner_master/?created_user_id=${partnerAuth.user_id}`;
+  //   }
 
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      if (data && data.data) {
-        setListings(data.data);
-        setFilteredListings(data.data);
-      } else {
-        setError("No listings available");
-      }
-    } catch (err) {
-      setError("Something went wrong while fetching data.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //   try {
+  //     const res = await fetch(url);
+  //     const data = await res.json();
+  //     if (data && data.data) {
+  //       setListings(data.data);
+  //       setFilteredListings(data.data);
+  //     } else {
+  //       setError("No listings available");
+  //     }
+  //   } catch (err) {
+  //     setError("Something went wrong while fetching data.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const fetchPartners = async ({ queryKey }) => {
+  const [, partnerAuth] = queryKey;
+  let url = "";
+
+  if (partnerAuth?.userType === "IH" && partnerAuth?.code === "AD") {
+    url = `${BASE_URL}/partner_master/`;
+  } else if (partnerAuth?.userType === "IH" && partnerAuth?.code === "SE") {
+    url = `${BASE_URL}/partner_master/?sales_user=${partnerAuth.user_id}`;
+  } else if (partnerAuth?.userType === "PR") {
+    url = `${BASE_URL}/partner_master/?partner_user=${partnerAuth.user_id}`;
+  } else {
+    url = `${BASE_URL}/partner_master/?created_user_id=${partnerAuth.user_id}`;
+  }
+
+  const res = await fetch(url);
+  const data = await res.json();
+
+  if (!data?.data) {
+    throw new Error("No listings available");
+  }
+
+  return data.data;
+};
+
+
+const {
+  data: listingsdata = [],
+  isLoading : loading ,
+  isError : erorr,
+  error
+} = useQuery({
+  queryKey: ["partner-listings", partnerAuth],
+  queryFn: fetchPartners,
+
+  // 🔥 Important configs
+  staleTime: 5 * 60 * 1000,      // 5 minutes → NO re-fetch
+  cacheTime: 30 * 60 * 1000,     // keep cache for 30 minutes
+  refetchOnWindowFocus: false,  // don't refetch on tab focus
+  enabled: !!partnerAuth?.user_id, // wait till auth exists
+});
+
+
+useEffect(() => {
+  if (listingsdata.length) {
+    setFilteredListings(listingsdata);
+    setListings(listingsdata);
+  }
+}, [listingsdata]);
+
 
   const handleEdit = (id) => {
     navigate(`/park_listing/${id}`);
@@ -583,94 +681,7 @@ setResetLoadingId(partnerid);
             defaultSortFieldId={1}
             subHeader
             dense // ✅ more compact, professional look
-            customStyles={{
-              table: {
-                style: {
-                  width: "100%",
-                  borderCollapse: "collapse",
-                  fontSize: "14px",
-                  borderRadius: "10px",
-                  overflow: "hidden",
-                  boxShadow: "0 0 10px rgba(0,0,0,0.05)",
-                },
-              },
-              tableWrapper: {
-                style: {
-                  overflowX: "auto", // ✅ enables scroll only when needed
-                  overflowY: "visible",
-                  width: "100%",
-                },
-              },
-              headRow: {
-                style: {
-                  backgroundColor: "#68c597ff",
-                  color: "#fff",
-                  fontWeight: "600",
-                  fontSize: "14px",
-                  whiteSpace: "nowrap",
-                  textAlign: "left",
-                },
-              },
-              headCells: {
-                style: {
-                  padding: "12px 16px",
-                  whiteSpace: "normal",
-                  wordBreak: "break-word",
-                  borderBottom: "1px solid #e2e2e2",
-                },
-              },
-              cells: {
-                style: {
-                  padding: "10px 14px",
-                  whiteSpace: "normal",
-                  wordBreak: "break-word",
-                  lineHeight: "1.5",
-                  verticalAlign: "middle",
-                },
-              },
-              rows: {
-                style: {
-                  minHeight: "48px",
-                  "&:nth-of-type(odd)": {
-                    backgroundColor: "#f9f9f9",
-                  },
-                  "&:hover": {
-                    backgroundColor: "#f1fdf3", // soft green hover
-                    cursor: "pointer",
-                  },
-                },
-              },
-              pagination: {
-                style: {
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexWrap: "wrap",
-                  padding: "10px 20px",
-                  borderTop: "1px solid #ddd",
-                  backgroundColor: "#fff",
-                  borderRadius: "0 0 10px 10px",
-                },
-                pageButtonsStyle: {
-                  borderRadius: "6px",
-                  height: "36px",
-                  width: "36px",
-                  margin: "0 4px",
-                  cursor: "pointer",
-                  backgroundColor: "#f4f4f4",
-                  color: "#000",
-                  border: "1px solid #ccc",
-                  "&:hover": {
-                    backgroundColor: "#68c597ff",
-                    color: "#fff",
-                    borderColor: "#68c597ff",
-                  },
-                  "&:disabled": {
-                    opacity: 0.5,
-                  },
-                },
-              },
-            }}
+            customStyles={customStyles}
           />
 
           {/* <DataTable

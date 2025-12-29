@@ -96,7 +96,7 @@ function Compresive() {
                     <h6>{cat.name}</h6>
                   </Card>
                 </Link>
-
+  
               )))}
               
         </CardWrapper>

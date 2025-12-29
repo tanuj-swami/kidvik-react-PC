@@ -1,4 +1,4 @@
-import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N as a,P as o,T as s,W as c,_ as l,b as u,c as d,f,g as p,k as m,l as ee,m as h,o as g,p as _,r as v,s as y,t as b,u as x,v as S,w as C,x as w,z as T}from"./index-A1ioPTrq.js";import{n as E,t as D}from"./GlobalOwlSlider -D0AtoCw4.js";import"./Services-CvaJp4N2.js";import"./Kidvik_programe-BnGL62K0.js";import"./Kidvik_Event-D4hy4FC6.js";import{t as O}from"./Blog-CrojBSaA.js";import"./Testimonials-BLk4soWO.js";import"./Contact_us-D1aq4v2u.js";var k=_(`arrow-right`,[[`path`,{d:`M5 12h14`,key:`1ays0h`}],[`path`,{d:`m12 5 7 7-7 7`,key:`xquz4c`}]]),A=c(E()),j=c(T()),M=c(e());async function N(){return(await(await fetch(`${i}/Slider/?Slider_Plateform=web`)).json())?.data||[]}function P(){let{data:e=[],isLoading:t,isError:n}=m({queryKey:[`sliderData`],queryFn:N});return t?(0,M.jsx)(g,{}):n?(0,M.jsx)(`div`,{className:`text-center py-5`,children:(0,M.jsx)(`h4`,{children:`Error loading slider`})}):e.length===0?(0,M.jsx)(`div`,{className:`text-center py-5`,children:(0,M.jsx)(`h4`,{children:`No slides found`})}):(0,M.jsx)(A.default,{dots:!0,appendDots:e=>(0,M.jsx)(`ul`,{className:`custom-dots`,children:e}),customPaging:()=>(0,M.jsx)(`div`,{className:`custom-dot`}),infinite:!0,speed:800,autoplay:!0,autoplaySpeed:3e3,slidesToShow:1,slidesToScroll:1,arrows:!1,children:e.map((e,t)=>(0,M.jsx)(`div`,{className:`p-0 m-0`,children:(0,M.jsx)(`div`,{className:`slider-bg`,style:{backgroundImage:`linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('${i}${e.Slider_image}')`},children:(e.Slider_maintext||e.Slider_topline)&&(0,M.jsxs)(`div`,{className:`text-center align-items-center pt-5`,children:[e.Slider_topline&&(0,M.jsx)(`h3`,{className:`text-light mb-3 display-5`,children:e.Slider_topline}),e.Slider_maintext&&(0,M.jsx)(`h3`,{className:`display-5 slider_color mb-4`,children:e.Slider_maintext}),(0,M.jsxs)(`div`,{children:[e.Slider_button_text1&&(0,M.jsx)(`a`,{href:``,className:`btn btn-primary px-4 py-3 px-md-5 me-3 btn-border-radius`,children:e.Slider_button_text1}),e.Slider_button_text2&&(0,M.jsx)(`a`,{href:``,className:`btn btn-primary px-4 py-3 px-md-5 btn-border-radius`,children:e.Slider_button_text2})]})]})})},t))})}var F=P;d();var I=y.div`
+import"./What_Drives_Us-CjuqNV09.js";import{B as e,C as t,H as n,I as r,M as i,N as a,Q as o,R as s,U as c,V as l,_ as u,c as d,f,j as p,k as m,l as h,m as g,n as _,o as v,p as y,q as ee,s as b,t as x,u as S,v as C,x as w,y as T}from"./index-B6Nti2U8.js";import{n as E,t as D}from"./GlobalOwlSlider -Dvdte9gK.js";import"./Services-IzzXd81u.js";import"./Kidvik_programe-DJ0sBIB7.js";import"./Kidvik_Event-Cl8E8-2S.js";import{t as O}from"./Blog-CkqzsXlb.js";import"./Testimonials-BdSOHYfb.js";import"./Contact_us-DbtvvL2P.js";var k=y(`arrow-right`,[[`path`,{d:`M5 12h14`,key:`1ays0h`}],[`path`,{d:`m12 5 7 7-7 7`,key:`xquz4c`}]]),A=o(E()),j=o(ee()),M=o(s());async function N(){return(await(await fetch(`${e}/Slider/?Slider_Plateform=web`)).json())?.data||[]}function P(){let{data:t=[],isLoading:n,isError:i}=r({queryKey:[`sliderData`],queryFn:N});return n?(0,M.jsx)(v,{}):i?(0,M.jsx)(`div`,{className:`text-center py-5`,children:(0,M.jsx)(`h4`,{children:`Error loading slider`})}):t.length===0?(0,M.jsx)(`div`,{className:`text-center py-5`,children:(0,M.jsx)(`h4`,{children:`No slides found`})}):(0,M.jsx)(A.default,{dots:!0,appendDots:e=>(0,M.jsx)(`ul`,{className:`custom-dots`,children:e}),customPaging:()=>(0,M.jsx)(`div`,{className:`custom-dot`}),infinite:!0,speed:800,autoplay:!0,autoplaySpeed:3e3,slidesToShow:1,slidesToScroll:1,arrows:!1,children:t.map((t,n)=>(0,M.jsx)(`div`,{className:`p-0 m-0`,children:(0,M.jsx)(`div`,{className:`slider-bg`,style:{backgroundImage:`linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('${e}${t.Slider_image}')`},children:(t.Slider_maintext||t.Slider_topline)&&(0,M.jsxs)(`div`,{className:`text-center align-items-center pt-5`,children:[t.Slider_topline&&(0,M.jsx)(`h3`,{className:`text-light mb-3 display-5`,children:t.Slider_topline}),t.Slider_maintext&&(0,M.jsx)(`h3`,{className:`display-5 slider_color mb-4`,children:t.Slider_maintext}),(0,M.jsxs)(`div`,{children:[t.Slider_button_text1&&(0,M.jsx)(`a`,{href:``,className:`btn btn-primary px-4 py-3 px-md-5 me-3 btn-border-radius`,children:t.Slider_button_text1}),t.Slider_button_text2&&(0,M.jsx)(`a`,{href:``,className:`btn btn-primary px-4 py-3 px-md-5 btn-border-radius`,children:t.Slider_button_text2})]})]})})},n))})}var F=P;d();var I=b.div`
   width: 100%;
   overflow: hidden;
   border-radius: 1rem;
@@ -21,14 +21,14 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
       max-height: 250px;
     }
   }
-`,L=y.div`
+`,L=b.div`
   h1 {
     font-size: 2rem;
     @media (max-width: 576px) {
       font-size: 1.5rem;
     }
   }
-`,R=async()=>(await(await fetch(`${i}/AboutUs`)).json()).data?.[0]||null;function z(){let[e,t]=(0,j.useState)(!1),{data:n,isLoading:a,isError:o,error:s}=m({queryKey:[`aboutData`],queryFn:R,staleTime:1e3*60*5});return a?(0,M.jsx)(g,{}):o?(0,M.jsxs)(`p`,{className:`text-center py-5 text-danger`,children:[`Error: `,s.message]}):n?(0,M.jsx)(`div`,{className:`container-fluid py-2 about`,children:(0,M.jsx)(`div`,{className:`container py-5`,children:(0,M.jsxs)(`div`,{className:`row g-5 align-items-center`,children:[(0,M.jsx)(`div`,{className:`col-lg-6`,children:(0,M.jsx)(I,{children:(0,M.jsx)(`video`,{muted:!0,autoPlay:!0,loop:!0,playsInline:!0,poster:`img/video-thumbnail.jpg`,children:(0,M.jsx)(`source`,{src:`${i}${n.AboutUs_Image}`,type:`video/mp4`})})})}),(0,M.jsx)(`div`,{className:`col-lg-6`,children:(0,M.jsxs)(L,{children:[(0,M.jsx)(`h4`,{className:`text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 rounded`,children:n.AboutUs_Top_Line}),(0,M.jsx)(`h1`,{className:`text-dark mb-4 fw-bold`,children:n.AboutUs_Heading}),(0,M.jsxs)(`div`,{className:`text-dark mb-3`,style:{whiteSpace:`pre-line`},children:[e?(0,M.jsx)(`div`,{dangerouslySetInnerHTML:{__html:n.AboutUs_Description}}):(0,M.jsx)(`div`,{dangerouslySetInnerHTML:{__html:`${n.AboutUs_Description.slice(0,852)}...`}}),n.AboutUs_Description.length>852&&(0,M.jsx)(`button`,{className:`btn btn-link p-0 mt-2`,onClick:()=>t(!e),children:e?`Read Less`:`Read More`})]}),n.AboutUs_More_Button===1&&(0,M.jsx)(r,{to:n.AboutUs_More_Button_link||`#`,className:`btn btn-primary px-5 py-3 mt-3 rounded`,children:n.AboutUs_More_Button_text})]})})]})})}):(0,M.jsx)(`p`,{className:`text-center py-5`,children:`No About data found.`})}var B=z;E(),d(),y.div`
+`,R=async()=>(await(await fetch(`${e}/AboutUs`)).json()).data?.[0]||null;function z(){let[t,n]=(0,j.useState)(!1),{data:i,isLoading:a,isError:o,error:s}=r({queryKey:[`aboutData`],queryFn:R,staleTime:1e3*60*5});return a?(0,M.jsx)(v,{}):o?(0,M.jsxs)(`p`,{className:`text-center py-5 text-danger`,children:[`Error: `,s.message]}):i?(0,M.jsx)(`div`,{className:`container-fluid py-2 about`,children:(0,M.jsx)(`div`,{className:`container py-5`,children:(0,M.jsxs)(`div`,{className:`row g-5 align-items-center`,children:[(0,M.jsx)(`div`,{className:`col-lg-6`,children:(0,M.jsx)(I,{children:(0,M.jsx)(`video`,{muted:!0,autoPlay:!0,loop:!0,playsInline:!0,poster:`img/video-thumbnail.jpg`,children:(0,M.jsx)(`source`,{src:`${e}${i.AboutUs_Image}`,type:`video/mp4`})})})}),(0,M.jsx)(`div`,{className:`col-lg-6`,children:(0,M.jsxs)(L,{children:[(0,M.jsx)(`h4`,{className:`text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 rounded`,children:i.AboutUs_Top_Line}),(0,M.jsx)(`h1`,{className:`text-dark mb-4 fw-bold`,children:i.AboutUs_Heading}),(0,M.jsxs)(`div`,{className:`text-dark mb-3`,style:{whiteSpace:`pre-line`},children:[t?(0,M.jsx)(`div`,{dangerouslySetInnerHTML:{__html:i.AboutUs_Description}}):(0,M.jsx)(`div`,{dangerouslySetInnerHTML:{__html:`${i.AboutUs_Description.slice(0,852)}...`}}),i.AboutUs_Description.length>852&&(0,M.jsx)(`button`,{className:`btn btn-link p-0 mt-2`,onClick:()=>n(!t),children:t?`Read Less`:`Read More`})]}),i.AboutUs_More_Button===1&&(0,M.jsx)(c,{to:i.AboutUs_More_Button_link||`#`,className:`btn btn-primary px-5 py-3 mt-3 rounded`,children:i.AboutUs_More_Button_text})]})})]})})}):(0,M.jsx)(`p`,{className:`text-center py-5`,children:`No About data found.`})}var B=z;E(),d(),b.div`
   position: relative;
   border-radius: 1rem;
   padding: 10px;
@@ -65,10 +65,10 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
   &:hover svg {
     transform: scale(1.1);
   }
-`,d(),y.section`
+`,d(),b.section`
   padding: 3rem 1rem;
   background-color: #f9fafb;
-`,y.div`
+`,b.div`
   text-align: center;
   margin-bottom: 3rem;
 
@@ -96,7 +96,7 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
     color: #6b7280;
     font-size: 1rem;
   }
-`,y.div`
+`,b.div`
   background-color: #ffffff;
   border-radius: 1rem;
   border: 1px solid #e5e7eb;
@@ -181,7 +181,7 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
   font-size: 2rem;
 }
 
-`,y.button`
+`,b.button`
   background-color: #0284c7;
   color: #fff;
   padding: 0.5rem 1.5rem;
@@ -194,7 +194,7 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
   &:hover {
     background-color: #0369a1;
   }
-`,d();var V=[{icon:(0,M.jsx)(s,{}),title:`Search & Discover`,description:`Enter your location and find services near you. Browse categories or search for specific needs.`,step:`01`,color:`text-primary`},{icon:(0,M.jsx)(w,{}),title:`Filter & Compare`,description:`Use smart filters to find exactly what you need. Compare ratings, prices, and reviews from real parents.`,step:`02`,color:`text-info`},{icon:(0,M.jsx)(l,{}),title:`Connect & Book`,description:`Contact service providers directly, book appointments, or visit locations with confidence.`,step:`03`,color:`text-success`}],H=()=>(0,M.jsx)(U,{children:(0,M.jsx)(`section`,{className:`py-5`,id:`how-it-works`,children:(0,M.jsxs)(`div`,{className:`container`,children:[(0,M.jsx)(b,{icon:(0,M.jsx)(S,{}),Topheading:`simple process`,firstHeading:`How Kidvik`,secondHeading:`Makes Parenting Easier`,description:`Finding the right services for your child shouldn’t be stressful. Our simple 4-step process helps you discover, compare, and connect with trusted local services.`}),(0,M.jsxs)(`div`,{className:`row g-4 position-relative`,children:[(0,M.jsx)(`div`,{className:`d-none d-lg-block position-absolute top-50 start-0 end-0 translate-middle-y mx-5`,children:(0,M.jsx)(`div`,{className:`w-100`,style:{height:`3px`,background:`linear-gradient(to right, #0d6efd, #6610f2, #198754)`}})}),V.map((e,t)=>(0,M.jsxs)(`div`,{className:`col-12 col-md-6 col-lg-4 text-center `,children:[(0,M.jsx)(`div`,{className:`step-circle bg-primary text-white mx-auto`,children:e.step}),(0,M.jsx)(`div`,{className:`card shadow-sm  h-100 mt-4 how-card `,children:(0,M.jsxs)(`div`,{className:`card-body`,children:[(0,M.jsx)(`div`,{className:`icon-box mx-auto mb-4 ${e.color}`,style:{background:`${e.color===`text-primary`?`#e7f1ff`:e.color===`text-info`?`#e0f7fa`:e.color===`text-warning`?`#fff3cd`:`#e9fbe7`}`},children:e.icon}),(0,M.jsx)(`h5`,{className:`fw-semibold mb-2`,children:e.title}),(0,M.jsx)(`p`,{className:`text-muted`,children:e.description})]})})]},t))]})]})})}),U=y.section`
+`,d();var V=[{icon:(0,M.jsx)(p,{}),title:`Search & Discover`,description:`Enter your location and find services near you. Browse categories or search for specific needs.`,step:`01`,color:`text-primary`},{icon:(0,M.jsx)(t,{}),title:`Filter & Compare`,description:`Use smart filters to find exactly what you need. Compare ratings, prices, and reviews from real parents.`,step:`02`,color:`text-info`},{icon:(0,M.jsx)(C,{}),title:`Connect & Book`,description:`Contact service providers directly, book appointments, or visit locations with confidence.`,step:`03`,color:`text-success`}],H=()=>(0,M.jsx)(U,{children:(0,M.jsx)(`section`,{className:`py-5`,id:`how-it-works`,children:(0,M.jsxs)(`div`,{className:`container`,children:[(0,M.jsx)(x,{icon:(0,M.jsx)(T,{}),Topheading:`simple process`,firstHeading:`How Kidvik`,secondHeading:`Makes Parenting Easier`,description:`Finding the right services for your child shouldn’t be stressful. Our simple 4-step process helps you discover, compare, and connect with trusted local services.`}),(0,M.jsxs)(`div`,{className:`row g-4 position-relative`,children:[(0,M.jsx)(`div`,{className:`d-none d-lg-block position-absolute top-50 start-0 end-0 translate-middle-y mx-5`,children:(0,M.jsx)(`div`,{className:`w-100`,style:{height:`3px`,background:`linear-gradient(to right, #0d6efd, #6610f2, #198754)`}})}),V.map((e,t)=>(0,M.jsxs)(`div`,{className:`col-12 col-md-6 col-lg-4 text-center `,children:[(0,M.jsx)(`div`,{className:`step-circle bg-primary text-white mx-auto`,children:e.step}),(0,M.jsx)(`div`,{className:`card shadow-sm  h-100 mt-4 how-card `,children:(0,M.jsxs)(`div`,{className:`card-body`,children:[(0,M.jsx)(`div`,{className:`icon-box mx-auto mb-4 ${e.color}`,style:{background:`${e.color===`text-primary`?`#e7f1ff`:e.color===`text-info`?`#e0f7fa`:e.color===`text-warning`?`#fff3cd`:`#e9fbe7`}`},children:e.icon}),(0,M.jsx)(`h5`,{className:`fw-semibold mb-2`,children:e.title}),(0,M.jsx)(`p`,{className:`text-muted`,children:e.description})]})})]},t))]})]})})}),U=b.section`
   background: linear-gradient(135deg, #eaeef3ff, #eceef1ff); /* section ka halka gradient */
 
   .step-circle {
@@ -245,13 +245,13 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
   .how-card:hover .icon-box {
     transform: scale(1.15);
   }
-`,W=H;d();var te=y.div`
+`,te=H;d();var W=b.div`
   width: 100%;
   max-width: 1140px; /* Match Bootstrap container-lg width */
   margin: 0 auto;
   padding: 0 1rem; /* Bootstrap default padding */
   
-`,G=y.section`
+`,G=b.section`
   display: flex;
   align-items: stretch;
   justify-content: space-between;
@@ -269,7 +269,7 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
   @media (max-width: 600px) {
     padding: 2rem 0.5rem;
   }
-`,K=y.div`
+`,K=b.div`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -311,7 +311,7 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
       font-size: 0.95rem;
     }
   }
-`,q=y.ul`
+`,q=b.ul`
   list-style: none;
   padding: 0;
   margin-bottom: 2rem;
@@ -348,7 +348,7 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
       justify-content: center;
     }
   }
-`;y.div`
+`;b.div`
   display: flex;
   gap: 1rem;
   margin-bottom: 1.2rem;
@@ -384,7 +384,7 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
   @media (max-width: 600px) {
     justify-content: center;
   }
-`,y.div`
+`,b.div`
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -409,13 +409,13 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
   @media (max-width: 600px) {
     justify-content: center;
   }
-`;var J=y.div`
+`;var J=b.div`
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative; /* Required for absolute icons */
-`,Y=y.div`
+`,Y=b.div`
   width: 100%;
   max-width: 300px;
   max-height: 400px;
@@ -467,25 +467,25 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
     background: #fbbf24; /* Yellow star */
     color: white;
   }
-`,X=y.img`
+`,X=b.img`
   width: 100%;
   height: 100%;
   object-fit: contain;
-`;function Z(){return(0,M.jsx)(te,{children:(0,M.jsxs)(G,{children:[(0,M.jsxs)(K,{children:[(0,M.jsxs)(`div`,{className:`badge f-bold fs-3 d-flex align-items-center gap-2 justify-content-center text-dark`,children:[`  `,(0,M.jsx)(C,{className:`text-dark`}),`Mobile App Available`]}),(0,M.jsxs)(`h2`,{children:[`Take Kidvik `,(0,M.jsx)(`span`,{className:`blue`,children:`On The Go`})]}),(0,M.jsx)(`p`,{children:`Access all of Kidvik’s features right from your smartphone. Find services, read reviews, book appointments, and stay connected anywhere.`}),(0,M.jsxs)(q,{children:[(0,M.jsxs)(`li`,{children:[(0,M.jsx)(`span`,{className:`icon`,children:(0,M.jsx)(C,{})}),`Location-based service discovery`]}),(0,M.jsxs)(`li`,{children:[(0,M.jsx)(`span`,{className:`icon`,children:(0,M.jsx)(p,{})}),`Instant notifications and updates`]}),(0,M.jsxs)(`li`,{children:[(0,M.jsx)(`span`,{className:`icon`,children:(0,M.jsx)(n,{})}),`Secure and verified providers`]}),(0,M.jsxs)(`li`,{children:[(0,M.jsx)(`span`,{className:`icon`,children:(0,M.jsx)(t,{})}),`Rate and review services`]})]})]}),(0,M.jsx)(J,{children:(0,M.jsxs)(Y,{children:[(0,M.jsx)(X,{src:`/img/kidvik_app_ss/kidvik_app_ss.jpeg`,alt:`Kidvik App Screenshot`}),(0,M.jsx)(`span`,{className:`icon-top-right`,children:(0,M.jsx)(u,{})}),(0,M.jsx)(`span`,{className:`icon-bottom-left`,children:(0,M.jsx)(t,{})})]})})]})})}var Q=Z;d();var ne=()=>{let{partnerAuth:e}=h();return(0,M.jsx)(`div`,{className:`text-center`,children:(0,M.jsxs)(`div`,{className:`p-5 bg-primary-light rounded-3 shadow-lg`,children:[(0,M.jsx)(`h4`,{className:`fw-bold text-primary mb-3`,children:`Ready to Grow Your Business?`}),(0,M.jsx)(`p`,{className:`text-primary mb-4`,children:`Join thousands of trusted service providers who are already connecting with families through Kidvik. It's free to get started!`}),(0,M.jsxs)(`div`,{className:`d-flex flex-column flex-sm-row justify-content-center gap-3`,children:[(0,M.jsx)(r,{to:`${e?.partnerAccess?`park_listing`:`partner-signup`}`,children:(0,M.jsxs)(`button`,{className:`btn btn-primary d-flex align-items-center gap-2`,children:[(0,M.jsx)(f,{className:`me-1`}),` Become a Partner `,(0,M.jsx)(k,{className:`ms-1`})]})}),(0,M.jsx)(`button`,{className:`btn btn-primary`,children:`Learn More`})]})]})})};y.div`
+`;function Z(){return(0,M.jsx)(W,{children:(0,M.jsxs)(G,{children:[(0,M.jsxs)(K,{children:[(0,M.jsxs)(`div`,{className:`badge f-bold fs-3 d-flex align-items-center gap-2 justify-content-center text-dark`,children:[`  `,(0,M.jsx)(m,{className:`text-dark`}),`Mobile App Available`]}),(0,M.jsxs)(`h2`,{children:[`Take Kidvik `,(0,M.jsx)(`span`,{className:`blue`,children:`On The Go`})]}),(0,M.jsx)(`p`,{children:`Access all of Kidvik’s features right from your smartphone. Find services, read reviews, book appointments, and stay connected anywhere.`}),(0,M.jsxs)(q,{children:[(0,M.jsxs)(`li`,{children:[(0,M.jsx)(`span`,{className:`icon`,children:(0,M.jsx)(m,{})}),`Location-based service discovery`]}),(0,M.jsxs)(`li`,{children:[(0,M.jsx)(`span`,{className:`icon`,children:(0,M.jsx)(u,{})}),`Instant notifications and updates`]}),(0,M.jsxs)(`li`,{children:[(0,M.jsx)(`span`,{className:`icon`,children:(0,M.jsx)(i,{})}),`Secure and verified providers`]}),(0,M.jsxs)(`li`,{children:[(0,M.jsx)(`span`,{className:`icon`,children:(0,M.jsx)(a,{})}),`Rate and review services`]})]})]}),(0,M.jsx)(J,{children:(0,M.jsxs)(Y,{children:[(0,M.jsx)(X,{src:`/img/kidvik_app_ss/kidvik_app_ss.jpeg`,alt:`Kidvik App Screenshot`}),(0,M.jsx)(`span`,{className:`icon-top-right`,children:(0,M.jsx)(w,{})}),(0,M.jsx)(`span`,{className:`icon-bottom-left`,children:(0,M.jsx)(a,{})})]})})]})})}var Q=Z;d();var ne=()=>{let{partnerAuth:e}=g();return(0,M.jsx)(`div`,{className:`text-center`,children:(0,M.jsxs)(`div`,{className:`p-5 bg-primary-light rounded-3 shadow-lg`,children:[(0,M.jsx)(`h4`,{className:`fw-bold text-primary mb-3`,children:`Ready to Grow Your Business?`}),(0,M.jsx)(`p`,{className:`text-primary mb-4`,children:`Join thousands of trusted service providers who are already connecting with families through Kidvik. It's free to get started!`}),(0,M.jsxs)(`div`,{className:`d-flex flex-column flex-sm-row justify-content-center gap-3`,children:[(0,M.jsx)(c,{to:`${e?.partnerAccess?`park_listing`:`partner-signup`}`,children:(0,M.jsxs)(`button`,{className:`btn btn-primary d-flex align-items-center gap-2`,children:[(0,M.jsx)(f,{className:`me-1`}),` Become a Partner `,(0,M.jsx)(k,{className:`ms-1`})]})}),(0,M.jsx)(`button`,{className:`btn btn-primary`,children:`Learn More`})]})]})})};b.div`
 
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   &:hover {
     transform: translateY(-5px);
     // box-shadow: 1px 8px 12px rgba(0, 0, 0, 0.2);
   }
-`;var re=y.div`
+`;var re=b.div`
   transition: all 0.3s ease;
   cursor: pointer;
   &:hover {
     transform: translateY(-6px);
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
   }
-`;y.div`
+`;b.div`
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -502,17 +502,17 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
   ${re}:hover & {
     transform: scale(1.1);
   }
-`;var ie=ne;d();var ae=y.section`
+`;var ie=ne;d();var ae=b.section`
   padding: 4rem 1rem;
-  // background-color: ${a} ;
+  // background-color: ${l} ;
 
   @media (max-width: 768px) {
     padding: 2rem 0.5rem;
   }
-`,oe=ee`
+`,oe=h`
   0% { opacity: 0; transform: translateY(20px);}
   100% { opacity: 1; transform: translateY(0);}
-`;y.div`
+`;b.div`
   background-color: #fff;
   border-radius: 1rem;
   padding: 1.5rem;
@@ -560,14 +560,14 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
       height: 80px;
     }
   }
-`;var se=y.div`
+`;var se=b.div`
   .quote {
     // margin-top: 1rem;
     font-size: 1rem;
     font-style: italic;
     color: #0284c7;
   }
-`,ce=y.section`
+`,ce=b.section`
   .category-bar .nav-link {
     position: relative;
     color: #333;
@@ -635,18 +635,18 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
       padding: 8px 12px;
     }
   }
-`;function le(){let[e,t]=(0,j.useState)([]),[n,r]=(0,j.useState)(!0),{category:a,loading:o,error:s}=x(),[c,l]=(0,j.useState)(`all`),[u,d]=(0,j.useState)([]);return(0,j.useEffect)(()=>{(async()=>{try{let e=await(await fetch(`${i}/trending_master/`)).json();t(e.data)}catch(e){console.error(`Error fetching trending:`,e)}finally{r(!1)}})()},[]),(0,j.useEffect)(()=>{if(c===`all`)d(e);else{let t=e.filter(e=>String(e.category_id)===String(c));d(t)}},[c,e]),(0,M.jsxs)(ae,{children:[(0,M.jsx)(b,{firstHeading:`Trending`,secondHeading:`on Kidvik`,description:`See what other parents are loving! Explore, compare, and connect with trusted local services for your child.`}),(0,M.jsx)(ce,{children:(0,M.jsxs)(`div`,{className:`container-fluid px-4 category-bar`,children:[s&&(0,M.jsx)(`div`,{className:`alert alert-danger text-center`,role:`alert`,children:`❌ Failed to load categories. Please try again.`}),(0,M.jsx)(`ul`,{className:`nav justify-content-center`,children:o?(0,M.jsx)(`p`,{className:`text-center text-secondary`,children:`Loading categories...`}):(0,M.jsxs)(M.Fragment,{children:[(0,M.jsx)(`li`,{className:`nav-item fs-5`,children:(0,M.jsx)(`span`,{className:`nav-link ${c===`all`?`active`:``}`,onClick:()=>l(`all`),children:`All`})}),a.map(e=>(0,M.jsx)(`li`,{className:`nav-item fs-5`,children:(0,M.jsx)(`span`,{className:`nav-link ${c===e.id?`active`:``}`,onClick:()=>l(e.id),children:e.name})},e.id))]})})]})}),n?(0,M.jsx)(g,{}):u.length>0?(0,M.jsx)(D,{children:u.map(e=>(0,M.jsx)(`div`,{className:`p-2`,children:(0,M.jsxs)(`div`,{className:`card h-100 shadow-sm small-card`,children:[(0,M.jsx)(`img`,{src:`${i}${e.img}`,className:`card-img-top rounded-top`,alt:e.title,style:{height:`150px`,objectFit:`cover`}}),(0,M.jsxs)(`div`,{className:`card-body d-flex flex-column p-3`,children:[(0,M.jsx)(se,{children:(0,M.jsxs)(`div`,{className:`d-flex justify-content-between align-items-center`,children:[(0,M.jsx)(`h6`,{className:`card-title text-primary fw-bold mb-2 `,style:{fontSize:`1rem`},children:e.title.length>40?e.title.slice(0,40)+`...`:e.title}),e.quote&&(0,M.jsxs)(`div`,{className:`quote`,children:[`"`,e.quote,`"`]})]})}),(0,M.jsx)(`p`,{className:`card-text text-muted mb-2`,style:{fontSize:`1rem`,flexGrow:1},children:e.description.length>100?e.description.slice(0,100)+`...`:e.description})]})]})},e.id))}):(0,M.jsxs)(`p`,{className:`text-muted fw-medium`,style:{height:`250px`,display:`flex`,alignItems:`center`,justifyContent:`center`,fontSize:`1.1rem`,backgroundColor:`#c2e4cdd5`,borderRadius:`10px`,marginTop:`1rem`},children:[(0,M.jsx)(`i`,{className:`bi bi-info-circle me-2 text-secondary`}),`No trending data available`]})]})}d();var ue=y.div`
+`;function le(){let[t,n]=(0,j.useState)([]),[r,i]=(0,j.useState)(!0),{category:a,loading:o,error:s}=S(),[c,l]=(0,j.useState)(`all`),[u,d]=(0,j.useState)([]);return(0,j.useEffect)(()=>{(async()=>{try{let t=await(await fetch(`${e}/trending_master/`)).json();n(t.data)}catch(e){console.error(`Error fetching trending:`,e)}finally{i(!1)}})()},[]),(0,j.useEffect)(()=>{if(c===`all`)d(t);else{let e=t.filter(e=>String(e.category_id)===String(c));d(e)}},[c,t]),(0,M.jsxs)(ae,{children:[(0,M.jsx)(x,{firstHeading:`Trending`,secondHeading:`on Kidvik`,description:`See what other parents are loving! Explore, compare, and connect with trusted local services for your child.`}),(0,M.jsx)(ce,{children:(0,M.jsxs)(`div`,{className:`container-fluid px-4 category-bar`,children:[s&&(0,M.jsx)(`div`,{className:`alert alert-danger text-center`,role:`alert`,children:`❌ Failed to load categories. Please try again.`}),(0,M.jsx)(`ul`,{className:`nav justify-content-center`,children:o?(0,M.jsx)(`p`,{className:`text-center text-secondary`,children:`Loading categories...`}):(0,M.jsxs)(M.Fragment,{children:[(0,M.jsx)(`li`,{className:`nav-item fs-5`,children:(0,M.jsx)(`span`,{className:`nav-link ${c===`all`?`active`:``}`,onClick:()=>l(`all`),children:`All`})}),a.map(e=>(0,M.jsx)(`li`,{className:`nav-item fs-5`,children:(0,M.jsx)(`span`,{className:`nav-link ${c===e.id?`active`:``}`,onClick:()=>l(e.id),children:e.name})},e.id))]})})]})}),r?(0,M.jsx)(v,{}):u.length>0?(0,M.jsx)(D,{children:u.map(t=>(0,M.jsx)(`div`,{className:`p-2`,children:(0,M.jsxs)(`div`,{className:`card h-100 shadow-sm small-card`,children:[(0,M.jsx)(`img`,{src:`${e}${t.img}`,className:`card-img-top rounded-top`,alt:t.title,style:{height:`150px`,objectFit:`cover`}}),(0,M.jsxs)(`div`,{className:`card-body d-flex flex-column p-3`,children:[(0,M.jsx)(se,{children:(0,M.jsxs)(`div`,{className:`d-flex justify-content-between align-items-center`,children:[(0,M.jsx)(`h6`,{className:`card-title text-primary fw-bold mb-2 `,style:{fontSize:`1rem`},children:t.title.length>40?t.title.slice(0,40)+`...`:t.title}),t.quote&&(0,M.jsxs)(`div`,{className:`quote`,children:[`"`,t.quote,`"`]})]})}),(0,M.jsx)(`p`,{className:`card-text text-muted mb-2`,style:{fontSize:`1rem`,flexGrow:1},children:t.description.length>100?t.description.slice(0,100)+`...`:t.description})]})]})},t.id))}):(0,M.jsxs)(`p`,{className:`text-muted fw-medium`,style:{height:`250px`,display:`flex`,alignItems:`center`,justifyContent:`center`,fontSize:`1.1rem`,backgroundColor:`#c2e4cdd5`,borderRadius:`10px`,marginTop:`1rem`},children:[(0,M.jsx)(`i`,{className:`bi bi-info-circle me-2 text-secondary`}),`No trending data available`]})]})}d();var ue=b.div`
   margin-top: 2rem;
-`,de=y.h4`
+`,de=b.h4`
   font-weight: 700;
   margin-bottom: 1rem;
   color: #333;
-`,fe=y.div`
+`,fe=b.div`
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 2rem;
-`,pe=y.div`
+`,pe=b.div`
   background: #ffffff;
   border: 1px solid #4caf5080;
   border-radius: 12px;
@@ -681,18 +681,18 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
     color: #333;
     word-wrap: break-word;
   }
-`;function $({selectedCategory:e,ref:t}){let{subcategories:n,subcatlaoding:r}=v();if(r)return(0,M.jsx)(`p`,{children:`Loading...`});let s={};return n.forEach(e=>{let t=e.category?.name||`Uncategorized`;s[t]||(s[t]=[]),s[t].push(e)}),(0,M.jsx)(`div`,{className:`py-2`,style:{background:a},children:(0,M.jsx)(`div`,{className:`container`,children:Object.keys(s).map((e,t)=>(0,M.jsxs)(ue,{children:[(0,M.jsx)(de,{children:e}),(0,M.jsx)(fe,{children:s[e].map(e=>(0,M.jsx)(o,{to:`/explore`,state:{category_id:e?.category_id,sub_category_id:e?.id},children:(0,M.jsxs)(pe,{children:[(0,M.jsx)(`img`,{src:`${i}${e.icon_img}`,alt:e.name}),(0,M.jsx)(`h6`,{children:e.name})]},e.id)}))})]},t))})})}var me=$;d(),y.div`
+`;function $({selectedCategory:t,ref:r}){let{subcategories:i,subcatlaoding:a}=_();if(a)return(0,M.jsx)(`p`,{children:`Loading...`});let o={};return i.forEach(e=>{let t=e.category?.name||`Uncategorized`;o[t]||(o[t]=[]),o[t].push(e)}),(0,M.jsx)(`div`,{className:`py-2`,style:{background:l},children:(0,M.jsx)(`div`,{className:`container`,children:Object.keys(o).map((t,r)=>(0,M.jsxs)(ue,{children:[(0,M.jsx)(de,{children:t}),(0,M.jsx)(fe,{children:o[t].map(t=>(0,M.jsx)(n,{to:`/explore`,state:{category_id:t?.category_id,sub_category_id:t?.id},children:(0,M.jsxs)(pe,{children:[(0,M.jsx)(`img`,{src:`${e}${t.icon_img}`,alt:t.name}),(0,M.jsx)(`h6`,{children:t.name})]},t.id)}))})]},r))})})}var me=$;d(),b.div`
   margin-top: 2rem;
-`;var he=y.h4`
+`;var he=b.h4`
   font-weight: 700;
   margin-bottom: 1rem;
   color: #333;
-`,ge=y.div`
+`,ge=b.div`
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 2rem;
-`,_e=y.div`
+`,_e=b.div`
   background: #ffffff;
   border: 1px solid #4caf5080;
   border-radius: 12px;
@@ -727,4 +727,4 @@ import"./What_Drives_Us-BaOvqUSw.js";import{A as e,D as t,E as n,F as r,M as i,N
     color: #333;
     word-wrap: break-word;
   }
-`;function ve(){let{category:e,loading:t}=x(),n=(0,j.useRef)(null),[r,s]=(0,j.useState)(null),c=e=>{s(e),n.current?.scrollIntoView({behavior:`smooth`,block:`start`})};return(0,M.jsx)(M.Fragment,{children:(0,M.jsxs)(`div`,{className:`py-4`,style:{background:a},children:[(0,M.jsxs)(`div`,{className:`container`,children:[(0,M.jsx)(he,{children:`Explore Categories`}),(0,M.jsx)(ge,{children:t?(0,M.jsxs)(M.Fragment,{children:[` `,(0,M.jsx)(g,{}),` `]}):e.map(e=>(0,M.jsx)(o,{to:`/explore`,state:{category_id:e.id},children:(0,M.jsxs)(_e,{onClick:()=>c(e.name),children:[(0,M.jsx)(`img`,{src:`${i}${e.icon_img}`,alt:e.name}),(0,M.jsx)(`h6`,{children:e.name})]},e?.id)}))})]}),(0,M.jsx)(me,{ref:n,selectedCategory:r})]})})}var ye=ve;function be(){return(0,M.jsxs)(M.Fragment,{children:[(0,M.jsx)(F,{}),(0,M.jsx)(B,{}),(0,M.jsx)(ye,{}),(0,M.jsx)(le,{}),(0,M.jsx)(O,{}),(0,M.jsx)(W,{}),(0,M.jsx)(Q,{}),(0,M.jsx)(ie,{})]})}var xe=be;export{xe as default};
+`;function ve(){let{category:t,loading:r}=S(),i=(0,j.useRef)(null),[a,o]=(0,j.useState)(null),s=e=>{o(e),i.current?.scrollIntoView({behavior:`smooth`,block:`start`})};return(0,M.jsx)(M.Fragment,{children:(0,M.jsxs)(`div`,{className:`py-4`,style:{background:l},children:[(0,M.jsxs)(`div`,{className:`container`,children:[(0,M.jsx)(he,{children:`Explore Categories`}),(0,M.jsx)(ge,{children:r?(0,M.jsxs)(M.Fragment,{children:[` `,(0,M.jsx)(v,{}),` `]}):t.map(t=>(0,M.jsx)(n,{to:`/explore`,state:{category_id:t.id},children:(0,M.jsxs)(_e,{onClick:()=>s(t.name),children:[(0,M.jsx)(`img`,{src:`${e}${t.icon_img}`,alt:t.name}),(0,M.jsx)(`h6`,{children:t.name})]},t?.id)}))})]}),(0,M.jsx)(me,{ref:i,selectedCategory:a})]})})}var ye=ve;function be(){return(0,M.jsxs)(M.Fragment,{children:[(0,M.jsx)(F,{}),(0,M.jsx)(B,{}),(0,M.jsx)(ye,{}),(0,M.jsx)(le,{}),(0,M.jsx)(O,{}),(0,M.jsx)(te,{}),(0,M.jsx)(Q,{}),(0,M.jsx)(ie,{})]})}var xe=be;export{xe as default};

@@ -9,8 +9,10 @@ import Form_input from "../../Helper/Form_Input";
 import FilterableSelect from "../../Helper/FilterableSelect";
 import Show_Listing from "./Show_Listing/Show_Listing";
 import { showToast } from "../../Helper/toastService";
-import {Button} from "react-bootstrap"
+import { Button } from "react-bootstrap"
 import Familymamberlist from "./Show_Listing/Familymamberlist/Familymamberlist";
+import { useQuery } from "@tanstack/react-query";
+
 function Profile() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -23,8 +25,8 @@ function Profile() {
   const { partnerAuth } = usePartnerLogin();
   const username = auth?.username || partnerAuth?.partnerUsername;
   const token = auth?.accessToken || partnerAuth?.partnerAccess;
-  
-  const [formData , setFormData] = useState({
+
+  const [formData, setFormData] = useState({
     id: null,
     Bio: "",
     Facebook: "",
@@ -50,82 +52,101 @@ function Profile() {
     user_Description: "",
     dob: null,
     profile_pic: null,
-    create_date:null
+    create_date: null
   });
 
-  // Fetch cities
-  useEffect(() => {
-    fetch(`${BASE_URL}/city/`)
-      .then((res) => res.json())
-      .then((data) => {
-        const options = data.data.map((item) => ({
-          value: item.id,
-          label: item.City_name,
-        }));
-        setCityOptions(options);
-      })
-      .catch((err) => console.error("Error fetching cities:", err));
-  }, []);
 
-  // Fetch profile
-//  console.log("${BASE_URL}/profile/?username=${username}",`${BASE_URL}/profile/?username=${username}`)
-  const fetchProfile = async () => {
-    try {
-      const res = await fetch(
-        `${BASE_URL}/profile/?username=${username}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      
-      if (!res.ok) throw new Error("Failed to fetch profile");
-      const data = await res.json();
-      if (data?.data?.length > 0) {
-        const user = data.data[0];
-        console.log(" data.data[0]", data.data[0])
-        setFormData((prev) => ({
-          ...prev,
-          id: user?.id,
-          Bio: user?.Bio || "",
-          Facebook: user?.Facebook || "",
-          Instagram: user?.Instagram || "",
-          Linkedin: user?.Linkedin || "",
-          address_line1: user?.address_line1 || "",
-          address_line2: user?.address_line2 || "",
-          address_line3: user?.address_line3 || "",
-          saluation: user?.saluation || "",
-          area: user.area?.id || "",
-          city: user.city?.id || "",
-          gender: user?.gender || "",
-          mobile_number: user?.mobile_number || "",
-          occupation: user?.occupation || "",
-          work_address: user?.work_address || "",
-          reference: user?.reference || "",
-          email: user?.user?.email || "",
-          enrollment_date: user?.enrollment_date || null,
-          start_date: user?.start_date || null,
-          end_date: user?.end_date || null,
-          pincode: user?.pincode || "",
-          user_Designation: user?.user_Designation || "",
-          user_Description: user?.user_Description || "",
-          dob: user?.dob || "",
-          profile_pic: user?.profile_pic || null,
-        }));
-      }
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+  const fetchCities = async () => {
+    const res = await fetch(`${BASE_URL}/city/`);
+    if (!res.ok) throw new Error("Failed to fetch cities");
+    const json = await res.json();
+
+    return json.data.map((item) => ({
+      value: item.id,
+      label: item.City_name,
+    }));
   };
 
+  const { data: cityData } = useQuery({
+    queryKey: ["cities"],
+    queryFn: fetchCities,
+    staleTime: Infinity, // cities rarely change
+  });
+
   useEffect(() => {
-    fetchProfile();
-  }, [username, token]);
+    if (cityData) {
+      setCityOptions(cityData);
+    }
+  }, [cityData]);
+
+
+  const fetchProfile = async () => {
+    const res = await fetch(
+      `${BASE_URL}/profile/?username=${username}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!res.ok) throw new Error("Failed to fetch profile");
+    const json = await res.json();
+    return json.data?.[0] || null;
+  };
+
+  const {
+    data: profileData,
+    isLoading: profileLoading,
+    isError: profileError,
+    error: profileErrorMsg,
+  } = useQuery({
+    queryKey: ["profile", username],
+    queryFn: fetchProfile,
+    enabled: !!username && !!token, // wait till auth exists
+    staleTime: 5 * 60 * 1000,
+  });
+
+  useEffect(() => {
+    if (profileData) {
+      setFormData((prev) => ({
+        ...prev,
+        id: profileData?.id,
+        Bio: profileData?.Bio || "",
+        Facebook: profileData?.Facebook || "",
+        Instagram: profileData?.Instagram || "",
+        Linkedin: profileData?.Linkedin || "",
+        address_line1: profileData?.address_line1 || "",
+        address_line2: profileData?.address_line2 || "",
+        address_line3: profileData?.address_line3 || "",
+        saluation: profileData?.saluation || "",
+        area: profileData?.area?.id || "",
+        city: profileData?.city?.id || "",
+        gender: profileData?.gender || "",
+        mobile_number: profileData?.mobile_number || "",
+        occupation: profileData?.occupation || "",
+        work_address: profileData?.work_address || "",
+        reference: profileData?.reference || "",
+        email: profileData?.user?.email || "",
+        enrollment_date: profileData?.enrollment_date || null,
+        start_date: profileData?.start_date || null,
+        end_date: profileData?.end_date || null,
+        pincode: profileData?.pincode || "",
+        user_Designation: profileData?.user_Designation || "",
+        user_Description: profileData?.user_Description || "",
+        dob: profileData?.dob || "",
+        profile_pic: profileData?.profile_pic || null,
+      }));
+      setLoading(false);
+    }
+
+    if (profileError) {
+      setError(profileErrorMsg.message);
+      setLoading(false);
+    }
+  }, [profileData, profileError]);
 
 
   const handleChange = (e, actionMeta) => {
@@ -156,7 +177,7 @@ function Profile() {
         }
       });
 
-      console.log("payload", payload) 
+      console.log("payload", payload)
 
       const res = await fetch(`${BASE_URL}/profile/${id}/`, {
         method: "PUT",
@@ -183,9 +204,6 @@ function Profile() {
       setSaving(false);
     }
   };
-
-
-
 
   if (loading) return <Loading />;
   if (error) return <p className="text-danger">{error}</p>;
@@ -247,54 +265,54 @@ function Profile() {
                           onChange={handleChange}
                           disabled={isEditing}
                         /> */}
-                                             <input
-                                             type="file"
-                                             id="profileImage"
-                                             name="profile_pic"
-                                             className="d-none"
-                                             accept="image/*"
-                                             onChange={handleChange}
-                                             disabled={isEditing}
-                                             
-                                           />
+                        <input
+                          type="file"
+                          id="profileImage"
+                          name="profile_pic"
+                          className="d-none"
+                          accept="image/*"
+                          onChange={handleChange}
+                          disabled={isEditing}
+
+                        />
 
                       </div>
                     </Col>
                     <Col md={6}>
                     </Col>
                     <Col md={4}>
-                       <div className="d-flex justify-content-end mt-3 align-items-center mb-4 gap-3">
-                  {/* <h3 className="text-danger fw-bold">Profile</h3> */}
-                  {isEditing ? (
-                    <button
-                      className="btn btn-success"
-                      onClick={() => setIsEditing(false)}
-                    >
-                      <FaEdit className="me-2" />
-                      Edit
-                    </button>
-                  ) : (
-                    <div>
-                      <button
-                        className="btn btn-primary me-2"
-                        disabled={saving}
-                        onClick={() => handleSave(formData.id)}
-                      >
-                        {saving ? "Saving..." : "Save Changes"}
-                      </button>
-                      <button
-                        className="btn btn-outline-danger"
-                        onClick={() => setIsEditing(true)}
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  )}
-                   <button  className="btn btn-success" onClick={() => setShowFamilyModal(true)}>
-                            Add Family Member
+                      <div className="d-flex justify-content-end mt-3 align-items-center mb-4 gap-3">
+                        {/* <h3 className="text-danger fw-bold">Profile</h3> */}
+                        {isEditing ? (
+                          <button
+                            className="btn btn-success"
+                            onClick={() => setIsEditing(false)}
+                          >
+                            <FaEdit className="me-2" />
+                            Edit
                           </button>
-                </div> 
-                     
+                        ) : (
+                          <div>
+                            <button
+                              className="btn btn-primary me-2"
+                              disabled={saving}
+                              onClick={() => handleSave(formData.id)}
+                            >
+                              {saving ? "Saving..." : "Save Changes"}
+                            </button>
+                            <button
+                              className="btn btn-outline-danger"
+                              onClick={() => setIsEditing(true)}
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        )}
+                        <button className="btn btn-success" onClick={() => setShowFamilyModal(true)}>
+                          Add Family Member
+                        </button>
+                      </div>
+
                     </Col>
 
 
@@ -473,7 +491,7 @@ function Profile() {
                   </Row>
                 </div>
 
-                
+
                 <div className="d-flex justify-content-end mt-3 align-items-center mb-4 gap-3">
                   {/* <h3 className="text-danger fw-bold">Profile</h3> */}
                   {isEditing ? (
@@ -501,18 +519,28 @@ function Profile() {
                       </button>
                     </div>
                   )}
-                   <button  className="btn btn-success" onClick={() => setShowFamilyModal(true)}>
-                            Add Family Member
-                          </button>
-                </div> 
-                <Familymamberlist userId={formData.id}  showFamilyModal={showFamilyModal} setShowFamilyModal={setShowFamilyModal}/>
+                  <button className="btn btn-success" onClick={() => setShowFamilyModal(true)}>
+                    Add Family Member
+                  </button>
+                </div>
+                <Familymamberlist userId={formData.id} showFamilyModal={showFamilyModal} setShowFamilyModal={setShowFamilyModal} />
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <Show_Listing />
+      {
+        auth?.accessToken ? (
+          <>
+          
+          </>
+        ) : (
+          <>
+            <Show_Listing />
+          </>
+        )
+      }
 
     </>
 

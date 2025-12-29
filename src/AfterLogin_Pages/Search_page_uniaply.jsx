@@ -11,20 +11,29 @@ import { Loading } from '../Helper/Loader';
 import Filter_Listing from './Uniapply_design/Filter_Listing';
 import { BASE_URL } from '../Helper/Base_Url';
 import Search_page_card from './Uniapply_design/Search_page_card/Search_page_card';
+import SubscriptionPage from '../Componenet/Services/payment_page';
+import { useCheckPlan } from '../Componenet/Services/useCheckPlan';
+import { usePartnerLogin } from '../Contaxt/PartnarLogin_context';
 
 function Search_page_uniaply() {
   const location = useLocation();
   const [activeCat, setActiveCat] = useState(null);
+  const { hasActivePlan } = useCheckPlan();
+  const {partnerAuth } = usePartnerLogin();
   const pathnames = location.pathname.split("/").filter((x) => x);
   const { state, category, loading, error, dispatch, subLoading } = Use_Listing_Filter();
   const category_id = location.state?.category_id || state.category_id;
   const sub_category_id = location.state?.sub_category_id || state.sub_category_id;
   const sub_category_detail = location.state?.sub_category_Detail_id || state.sub_category_detail_id;
+  //  const hasActivePlan = data?.data?.has_active_plan;
+   console.log("hasActivePlan",hasActivePlan )
+
   useEffect(() => {
     if (category_id && category_id !== "all") {
       setActiveCat(category_id);
       dispatch({ type: "SET_CATEGORY", payload: category_id });
     }
+    
     if (sub_category_id && sub_category_id !== "all") {
       dispatch({
         type: "SET_FILTER",
@@ -39,7 +48,6 @@ function Search_page_uniaply() {
     }
   }, [category_id, sub_category_id, sub_category_detail]);
 
-  // 🟢 2️⃣ Default fallback when user came directly (no NavLink)
   useEffect(() => {
     if (!location.state && category.length > 0 && !activeCat) {
       const defaultCategory = category[0];
@@ -74,6 +82,9 @@ function Search_page_uniaply() {
       });    
     }
   }, [state.sub_category, sub_category_id]);
+
+  const isAdmin =
+  partnerAuth?.userType === "IH" && partnerAuth?.code === "AD";
 
   
   return (
@@ -175,14 +186,14 @@ function Search_page_uniaply() {
                 </Result>
               </div>
               {/* Sort Dropdown */}
-              <div className="sort-dropdown">
+              {/* <div className="sort-dropdown">
                 <select className="form-select" id="sortBy">
                   <option value="relevance">Sort By: Relevance</option>
                   <option value="name">Name</option>
                   <option value="fee">Fee</option>
                   <option value="rating">Rating</option>
                 </select>
-              </div>
+              </div> */}
             </div>
 
             {/* School Type Filters */}
@@ -205,8 +216,16 @@ function Search_page_uniaply() {
     </button>
   ))}
 </div>
+          {
+  isAdmin ? (
+    <Search_page_card showcard={false} />
+  ) : hasActivePlan ? (
+    <Search_page_card showcard={false} />
+  ) : ( 
+    <SubscriptionPage />     
+  )
+}
 
-            <Search_page_card  showcard={false}/>
 
           </div>
 

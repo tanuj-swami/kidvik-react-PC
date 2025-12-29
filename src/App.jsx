@@ -32,7 +32,7 @@ const KidvikBlogMore = lazy(() => import("./Routers/Kidvik_Blog_more/Kidvik_blog
 const KidvikTestimonialMore = lazy(() => import("./Routers/kidvik_Testimonial/Kidvik_testimonial_more"));
 const Contact_us = lazy(() => import("./Routers/Contact_us/Contact_us"));
 const NotFound = lazy(() => import("./Pages/Not_Found"));
-const ProtectedRoute = lazy(() => import("./Layout/Private_Route"))
+const ProtectedRoute = lazy(() => import("./Layout/Private_Route"));
 const Single_Page_Listing = lazy(() => import("./AfterLogin_Pages/Uniapply_design/single_Page_listing/single_Page_listing"));
 
 
@@ -139,7 +139,6 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-
   useEffect(() => {
     // Dynamically load external JS
     var script = document.createElement("script");

@@ -11,12 +11,13 @@ const hideLayoutRoutes = ["/partnersignup"]; // add more paths if needed
   }
   return (
     <>
-
+    <div className="d-flex flex-column min-vh-100">
     <Header/> 
-
+  <main className="flex-fill">
     <Outlet/>
-
+</main>
     <Footer/>
+    </div>
     {/* </div> */}
     {/* <CopyRight/> */}
     

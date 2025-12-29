@@ -15,18 +15,18 @@ smoothscroll.polyfill();
 const queryClient = new QueryClient();
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-        <QueryClientProvider client={queryClient}>    {/* 🔥 ADD THIS */}
-    <LoginProvider>
-      <PartnerLoginProvider>
-        <FilterProvider>
-         <Listing_Provider>
-            <APIProvider>
-              <App />
-            </APIProvider>
-         </Listing_Provider>
-        </FilterProvider>
-      </PartnerLoginProvider>
-    </LoginProvider>
-     </QueryClientProvider>  
+    <QueryClientProvider client={queryClient}>    {/* 🔥 ADD THIS */}
+      <LoginProvider>
+        <PartnerLoginProvider>
+          <FilterProvider>
+            <Listing_Provider>
+              <APIProvider>
+                <App />
+              </APIProvider>
+            </Listing_Provider>
+          </FilterProvider>
+        </PartnerLoginProvider>
+      </LoginProvider>
+    </QueryClientProvider>
   </StrictMode>,
 )

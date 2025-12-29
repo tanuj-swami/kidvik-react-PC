@@ -191,13 +191,13 @@ function SchoolProfile() {
     return <div className="content ">{content}</div>;
   };
 
-if (true) {
-    return (
-      <div className="flex flex-col items-center justify-center h-64 bg-gray-50 rounded-lg border border-gray-200 shadow-sm p-3 w-full col-span-3">
-        <Commingsoonmsg  />
-      </div>
-    );
-  }
+// if (true) {
+//     return (
+//       <div className="flex flex-col items-center justify-center h-64 bg-gray-50 rounded-lg border border-gray-200 shadow-sm p-3 w-full col-span-3">
+//         <Commingsoonmsg  />
+//       </div>
+//     );
+//   }
 
   return (
     <div className="school-profile">

@@ -91,8 +91,6 @@ function Login() {
       return;
     }
 
-
-
     setloading(true);
     try {
       const response = await fetch(`${BASE_URL}/login/`, {
@@ -126,7 +124,6 @@ function Login() {
       } else {
         console.error("Failed to send OTP:", response.status);
         showToast(data.message || "Submission failed", "error");
-
       }
     } catch (error) {
       console.error("Error while sending OTP:", error);

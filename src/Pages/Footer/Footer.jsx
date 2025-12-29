@@ -12,7 +12,8 @@ const Footer = () => {
   const { topbarData } = useLogin();
   const handleContactClick = useHandleContactClick();
   return (
-    <footer className="text-light pt-5" style={{ background: "black" }}>
+    <footer className=" mt-auto text-light pt-5 " style={{ background: "black" }}>
+    
       <div className="container ">
 
         <div className="row g-4">
@@ -238,6 +239,7 @@ const Footer = () => {
         {/* Bottom Bar */}
 
       </div>
+
     </footer>
   );
 };

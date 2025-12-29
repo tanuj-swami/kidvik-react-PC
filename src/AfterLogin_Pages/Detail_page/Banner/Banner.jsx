@@ -61,7 +61,8 @@ function Banner({ singledetail }) {
             </div>
 
             {singledetail?.Tag_Line && (
-              <p className="banner-tagline">“{singledetail.Tag_Line}”</p>
+              <p className="banner-tagline">
+                “{singledetail.Tag_Line}”</p>
             )}
 
             <div className="d-flex align-items-center gap-1 mt-1">

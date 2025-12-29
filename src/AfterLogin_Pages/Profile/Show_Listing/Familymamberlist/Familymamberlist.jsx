@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Card, Table, Form, Button, Modal, Spinner, Col } from "react-bootstrap";
+import { Card, Table, Form, Button, Modal, Spinner, Col , Row } from "react-bootstrap";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { BASE_URL } from "../../../../Helper/Base_Url";
 import { showToast } from "../../../../Helper/toastService";
 import fetchSelectOptions from "../../../Entry_screen_step/MasterTableData/Master_Institude_2nd_step";
 import FilterableSelect from "../../../../Helper/FilterableSelect";
+import { useQuery } from "@tanstack/react-query";
+
 
 const FamilyMembersList = ({ userId, showFamilyModal, setShowFamilyModal }) => {
-    const [members, setMembers] = useState([]);
-    const [loading, setLoading] = useState(true);
+    // const [members, setMembers] = useState([]);
+    // const [loading, setLoading] = useState(true);
     const [editRowId, setEditRowId] = useState(null);
     const [editRowData, setEditRowData] = useState({ relation_id: "", name: "", age: "" });
     const [familyMembers, setFamilyMembers] = useState([]);
@@ -27,22 +29,41 @@ const FamilyMembersList = ({ userId, showFamilyModal, setShowFamilyModal }) => {
     }, []);
 
     // Fetch existing family members
-    useEffect(() => {
-        if (userId) fetchFamilyMembers();
-    }, [userId]);
+    // useEffect(() => {
+    //     if (userId) fetchFamilyMembers();
+    // }, [userId]);
 
-    const fetchFamilyMembers = async () => {
-        try {
-            setLoading(true);
-            const response = await fetch(`${BASE_URL}/family_member/?user_id=${userId}`);
-            const json = await response.json();
-            setMembers(json.data || []);
-        } catch (err) {
-            console.error(err);
-        } finally {
-            setLoading(false);
-        }
-    };
+    // const fetchFamilyMembers = async () => {
+    //     try {
+    //         setLoading(true);
+    //         const response = await fetch(`${BASE_URL}/family_member/?user_id=${userId}`);
+    //         const json = await response.json();
+    //         setMembers(json.data || []);
+    //     } catch (err) {
+    //         console.error(err);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+
+    const fetchFamilyMembers = async ({ queryKey }) => {
+    const [, userId] = queryKey;
+    const response = await fetch(`${BASE_URL}/family_member/?user_id=${userId}`);
+    const json = await response.json();
+    return json.data || [];
+};
+
+const {
+    data: members = [],
+    isLoading: loading,
+    refetch: refetchFamilyMembers,
+} = useQuery({
+    queryKey: ["family-members", userId],
+    queryFn: fetchFamilyMembers,
+    enabled: !!userId,        // API calls only when userId exists
+    staleTime: 1000 * 60 * 5, // 5 min cache (no re-call)
+    cacheTime: 1000 * 60 * 10,
+});
 
     // Save family member details
     const handleSaveFamilyData = async () => {
@@ -307,40 +328,50 @@ const FamilyMembersList = ({ userId, showFamilyModal, setShowFamilyModal }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <div className="row g-3 align-items-end">
-                            <Col md={4}>
-                                <FilterableSelect
-                                    label="Relation"
-                                    name="relation_id"
-                                    value={newMember.relation_id}
-                                    onChange={(e) =>
-                                        setNewMember({ ...newMember, relation_id: e.target.value })
-                                    }
-                                    options={relationOptions}
-                                    placeholder="Select Relation"
-                                />
-                            </Col>
+                       <Row className="g-3 align-items-end">
+  <Col md={4}>
+    <FilterableSelect
+      label="Relation"
+      name="relation_id"
+      value={newMember.relation_id}
+      onChange={(e) =>
+        setNewMember({ ...newMember, relation_id: e.target.value })
+      }
+      options={relationOptions}
+      placeholder="Select Relation"
+      required
+    />
+  </Col>
 
-                            <Form.Group className="col-md-4">
-                                <Form.Label>Full Name</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Enter name"
-                                    value={newMember.name}
-                                    onChange={(e) => setNewMember({ ...newMember, name: e.target.value })}
-                                />
-                            </Form.Group>
+  <Col md={4}>
+    <Form.Group>
+      <Form.Label className="form-label">Full Name</Form.Label>
+      <Form.Control
+        type="text"
+        placeholder="Enter name"
+        value={newMember.name}
+        onChange={(e) =>
+          setNewMember({ ...newMember, name: e.target.value })
+        }
+      />
+    </Form.Group>
+  </Col>
 
-                            <Form.Group className="col-md-4">
-                                <Form.Label>Age</Form.Label>
-                                <Form.Control
-                                    type="number"
-                                    placeholder="Enter age"
-                                    value={newMember.age}
-                                    onChange={(e) => setNewMember({ ...newMember, age: e.target.value })}
-                                />
-                            </Form.Group>
-                        </div>
+  <Col md={4}>
+    <Form.Group>
+      <Form.Label className="form-label">Age</Form.Label>
+      <Form.Control
+        type="number"
+        placeholder="Enter age"
+        value={newMember.age}
+        onChange={(e) =>
+          setNewMember({ ...newMember, age: e.target.value })
+        }
+      />
+    </Form.Group>
+  </Col>
+</Row>
+
 
                         <div className="d-flex justify-content-end mt-4">
                             <Button

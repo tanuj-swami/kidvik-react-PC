@@ -12,12 +12,12 @@ export const APIProvider = ({ children }) => {
   const [partners , setPartners] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [subcategories , setsubcategories] = useState([])
+  // const [subcategories , setsubcategories] = useState([])
   const [dropdowenCategories , setdropdowenCategories] = useState([])
   const [dropdowensubcategory , setdropdowensubcategory] = useState([])
   const [dropdowensubcategorydetail , setdropdowensubcategorydetail] = useState([])
   const [singledetail , setsingledetail] = useState([])
-  const [subcatlaoding , setsubcatloading] = useState(true);
+  // const [subcatlaoding , setsubcatloading] = useState(true);
   const [sunlaoding , setsubloading] = useState(true);
 //  const [Listingdata , setlistingdata] = useState([]);
 //  const [loadinglisting , setloadinglisting] = useState([];)
@@ -47,22 +47,35 @@ export const APIProvider = ({ children }) => {
   };
 
  
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       setsubcatloading(true);
+  //       const res = await fetch(`${BASE_URL}/sub_category/`);
+  //       const data = await res.json();
+  //       setsubcategories(data?.data);
+  //     } catch (err) {
+  //       setError(err.message);
+  //     } finally {
+  //       setsubcatloading(false);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setsubcatloading(true);
-        const res = await fetch(`${BASE_URL}/sub_category/`);
-        const data = await res.json();
-        setsubcategories(data?.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setsubcatloading(false);
-      }
-    };
-    fetchData();
-  }, []);
+
+  const fetchSubCategoryList = async () => {
+  const res = await fetch(`${BASE_URL}/sub_category/`);
+  if (!res.ok) throw new Error("Failed to fetch subcategories");
+  const json = await res.json();
+  return json.data || [];
+};
+
+const { data: subcategories, isLoading: subcatlaoding } = useQuery({
+  queryKey: ["subCategories"],
+  queryFn: fetchSubCategoryList,
+  staleTime: 10 * 60 * 1000,
+});
 
 
   useEffect(() => {
@@ -71,25 +84,20 @@ export const APIProvider = ({ children }) => {
   }, []);
 
 
-const fetchSubcategories = async (categoryId) => {
-setsubloading(true)
-  try {
-    const res = await fetch(`${BASE_URL}/sub_category/?category_id=${categoryId}`);
-    const data = await res.json();
-    // const options = data.data.map((item) => ({
-    //   value: item.id,
-    //   label: item.name,
-    // }));
-    setdropdowensubcategory(data.data);
-  } catch (err) {
-    console.error("Error fetching subcategories:", err);
-    setdropdowensubcategory([]);
-   
-  }
-  finally{
-    setsubloading(false)
-  }
-};
+// const fetchSubcategories = async (categoryId) => {
+// setsubloading(true)
+//   try {
+//     const res = await fetch(`${BASE_URL}/sub_category/?category_id=${categoryId}`);
+//     const data = await res.json();
+//     setdropdowensubcategory(data.data);
+//   } catch (err) {
+//     console.error("Error fetching subcategories:", err);
+//     setdropdowensubcategory([]);
+//   }
+//   finally{
+//     setsubloading(false)
+//   }
+// };
 
 
   
@@ -124,6 +132,44 @@ setsubloading(true)
 //     });
 //   }
 // }, [filters.sub_category_id]);
+
+const fetchSubcategoryByCategory = async ({ queryKey }) => {
+  const [, categoryId] = queryKey;
+  const res = await fetch(`${BASE_URL}/sub_category/?category_id=${categoryId}`);
+  if (!res.ok) throw new Error("Failed to fetch");
+  const json = await res.json();
+  return json.data || [];
+};
+
+const {
+  data: subCategoryDropdownData,
+  refetch: refetchSubCategories,
+  isFetching: subCatFetching,
+} = useQuery({
+  queryKey: ["subCategoryDropdown", null],
+  queryFn: fetchSubcategoryByCategory,
+  enabled: false,
+});
+
+
+
+
+const fetchSubcategories = (categoryId) => {
+  setsubloading(true);
+  refetchSubCategories({
+    queryKey: ["subCategoryDropdown", categoryId],
+  });
+};
+
+
+useEffect(() => {
+  if (subCategoryDropdownData) {
+    setdropdowensubcategory(subCategoryDropdownData);
+    setsubloading(false);
+  }
+}, [subCategoryDropdownData]);
+
+
 
   const fetchSubcategoriesdetail = async (sub_categoryId) => {
     if (!sub_categoryId) {
@@ -179,6 +225,7 @@ async function Getsinglepartner(slug) {
   }
 }
 
+
   const fetchPolicies = async () => {
   const res = await fetch(`${BASE_URL}/policy_master/`);
   if (!res.ok) throw new Error("Failed to fetch");
@@ -201,7 +248,6 @@ async function Getsinglepartner(slug) {
 };
 
 
-  
   const { data: data , isLoading : contactLoading} = useQuery({
   queryKey: ["contactUs"],
   queryFn: fetchContactUs,

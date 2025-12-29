@@ -534,12 +534,16 @@
 }
 
 .banner-tagline {
-  font-size: 16px;
-  /* font-style: italic; */
-  color: #f1f1f1;
-  margin: 6px 0 5px;
+    font-size: 16px;
+    /* font-style: italic; */
+    color: #f1f1f1;
+    margin: 6px 0 5px;
     flex-wrap: wrap;
     text-align: start;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* show only 2 lines */
+    overflow: hidden;
 
 }
 
